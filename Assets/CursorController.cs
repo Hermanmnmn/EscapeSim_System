@@ -18,7 +18,7 @@ public class CursorController : MonoBehaviour
         int rawKnob = SerialController.Instance.Knob;
 
         // 3. 處理搖桿偏移量 (-1 ~ 1)
-        float inputX = (rawX - 512) / 512f;
+        float inputX = -(rawX - 512) / 512f;
         float inputZ = (rawY - 512) / 512f;
 
         // 死區處理：使用優化後的條件判斷

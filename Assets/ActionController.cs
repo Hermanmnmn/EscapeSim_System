@@ -27,7 +27,7 @@ public class ActionController : MonoBehaviour
     void SpawnFire()
     {
         // 在球的位置生成火
-        Instantiate(firePrefab, transform.position, Quaternion.identity);
+        Instantiate(firePrefab, transform.position , Quaternion.identity);
         Debug.Log("🔥 火源已放置！");
 
         // (選做) 可以在這裡通知 ESP32 變燈

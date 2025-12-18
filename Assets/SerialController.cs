@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Concurrent; // 引入執行緒安全的佇列
 using UnityEngine;
 using System.IO.Ports;
 using System.Threading;
 
 public class SerialController : MonoBehaviour
 {
-    [Header("🔧 除錯模式 (打勾就不用接 Micro:bit)")]
-    public bool useKeyboardDebug = true; // <--- 預設打勾！我們先用鍵盤測！
+    [Header("🔧 除錯模式")]
+    public bool useKeyboardDebug = false; // 預設關閉，用實體搖桿
 
     [Header("COM Port Settings")]
     public string portName = "COM3";
@@ -22,10 +23,15 @@ public class SerialController : MonoBehaviour
     public int Button = 0;
     public int Fire = 0;
 
+    [Header("Debug")]
+    public string rawDataDisplay = "";
+
     private SerialPort stream;
     private Thread readThread;
     private bool isRunning = false;
-    private object lockObj = new object();
+
+    // 這是防閃退的神器：執行緒安全佇列
+    private ConcurrentQueue<string> messageQueue = new ConcurrentQueue<string>();
 
     void Awake()
     {
@@ -35,38 +41,27 @@ public class SerialController : MonoBehaviour
 
     void Start()
     {
-        if (!useKeyboardDebug)
-        {
-            StartConnection();
-        }
+        if (!useKeyboardDebug) StartConnection();
     }
 
     void Update()
     {
-        // 如果開啟鍵盤除錯，就用 WASD 假裝是搖桿
+        // 1. 鍵盤模式
         if (useKeyboardDebug)
         {
-            // 歸零
-            JoyX = 512;
-            JoyY = 512;
+            ProcessKeyboardInput();
+            return;
+        }
 
-            // 鍵盤模擬搖桿 X/Y
-            if (Input.GetKey(KeyCode.A)) JoyX = 0;    // 左
-            if (Input.GetKey(KeyCode.D)) JoyX = 1023; // 右
-            if (Input.GetKey(KeyCode.W)) JoyY = 1023; // 上 (前)
-            if (Input.GetKey(KeyCode.S)) JoyY = 0;    // 下 (後)
-
-            // 鍵盤模擬旋鈕 (Q/E 控制高度)
-            if (Input.GetKey(KeyCode.Q)) Knob += 10;
-            if (Input.GetKey(KeyCode.E)) Knob -= 10;
-            Knob = Mathf.Clamp(Knob, 0, 1023);
-
-            // 鍵盤模擬開關 (Space)
-            Switch = Input.GetKey(KeyCode.Space) ? 1 : 0;
+        // 2. 實體模式：從「信箱」裡面拿信出來處理
+        // 只有在 Update (主執行緒) 裡，才更新 Unity 的變數
+        while (messageQueue.TryDequeue(out string message))
+        {
+            rawDataDisplay = message; // 更新 Inspector (現在安全了)
+            ParseData(message);       // 解析數據 (現在安全了)
         }
     }
 
-    // 當 Unity 關閉或腳本被停用時，強制殺死連線
     void OnDisable() { CloseConnection(); }
     void OnApplicationQuit() { CloseConnection(); }
 
@@ -80,6 +75,7 @@ public class SerialController : MonoBehaviour
             stream.DtrEnable = true;
             stream.RtsEnable = true;
             stream.Open();
+
             isRunning = true;
             readThread = new Thread(ReadSerialLoop);
             readThread.IsBackground = true;
@@ -88,20 +84,23 @@ public class SerialController : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogWarning($"[Serial] 無法連線 (可能被佔用，已自動切換為鍵盤模式): {e.Message}");
-            useKeyboardDebug = true; // 連線失敗就自動切換回鍵盤
+            Debug.LogWarning($"[Serial] 連線失敗 (切換為鍵盤模式): {e.Message}");
+            useKeyboardDebug = true;
         }
     }
 
     private void CloseConnection()
     {
         isRunning = false;
+        // 給執行緒一點時間自殺
         if (readThread != null && readThread.IsAlive) readThread.Join(100);
         if (stream != null && stream.IsOpen) { try { stream.Close(); } catch { } stream = null; }
     }
 
+    // === 後台執行緒 (只負責收信，不做任何解析) ===
     private void ReadSerialLoop()
     {
+        string buffer = "";
         while (isRunning && stream != null && stream.IsOpen)
         {
             try
@@ -109,54 +108,64 @@ public class SerialController : MonoBehaviour
                 string chunk = stream.ReadExisting();
                 if (!string.IsNullOrEmpty(chunk))
                 {
-                    lock (lockObj)
+                    buffer += chunk;
+                    int newlineIndex;
+                    while ((newlineIndex = buffer.IndexOf('\n')) >= 0)
                     {
-                        ParseData(chunk);
+                        string line = buffer.Substring(0, newlineIndex).Trim();
+                        buffer = buffer.Substring(newlineIndex + 1);
+
+                        if (!string.IsNullOrEmpty(line))
+                        {
+                            // 關鍵：不要在這裡解析！丟進 Queue 就好！
+                            messageQueue.Enqueue(line);
+                        }
                     }
                 }
-                Thread.Sleep(15);
+                Thread.Sleep(10); // 讓 CPU 休息，防當機
             }
             catch { }
         }
     }
 
-    private string buffer = "";
-    private void ParseData(string chunk)
+    private void ParseData(string data)
     {
-        buffer += chunk;
-        int newlineIndex;
-        while ((newlineIndex = buffer.IndexOf('\n')) >= 0)
+        try
         {
-            string line = buffer.Substring(0, newlineIndex).Trim();
-            buffer = buffer.Substring(newlineIndex + 1);
-            if (!string.IsNullOrEmpty(line))
+            string[] parts = data.Split(',');
+            foreach (var part in parts)
             {
-                try
+                string[] kv = part.Split(':');
+                if (kv.Length == 2)
                 {
-                    string[] parts = line.Split(',');
-                    foreach (var part in parts)
+                    string key = kv[0].Trim();
+                    if (int.TryParse(kv[1].Trim(), out int value))
                     {
-                        string[] kv = part.Split(':');
-                        if (kv.Length == 2)
+                        switch (key)
                         {
-                            string key = kv[0].Trim();
-                            if (int.TryParse(kv[1].Trim(), out int val))
-                            {
-                                switch (key)
-                                {
-                                    case "J_X": JoyX = val; break;
-                                    case "J_Y": JoyY = val; break;
-                                    case "KNOB": Knob = val; break;
-                                    case "SW": Switch = val; break;
-                                    case "J_BTN": Button = val; break;
-                                    case "FIRE": Fire = val; break;
-                                }
-                            }
+                            case "J_X": JoyX = value; break;
+                            case "J_Y": JoyY = value; break;
+                            case "KNOB": Knob = value; break;
+                            case "SW": Switch = value; break;
+                            case "J_BTN": Button = value; break;
+                            case "FIRE": Fire = value; break;
                         }
                     }
                 }
-                catch { }
             }
         }
+        catch { }
+    }
+
+    private void ProcessKeyboardInput()
+    {
+        JoyX = 512; JoyY = 512;
+        if (Input.GetKey(KeyCode.A)) JoyX = 0;
+        if (Input.GetKey(KeyCode.D)) JoyX = 1023;
+        if (Input.GetKey(KeyCode.W)) JoyY = 1023;
+        if (Input.GetKey(KeyCode.S)) JoyY = 0;
+        if (Input.GetKey(KeyCode.Q)) Knob = Mathf.Clamp(Knob + 10, 0, 1023);
+        if (Input.GetKey(KeyCode.E)) Knob = Mathf.Clamp(Knob - 10, 0, 1023);
+        Switch = Input.GetKey(KeyCode.Space) ? 1 : 0;
     }
 }

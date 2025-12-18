@@ -1,6 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Concurrent;
+ï»¿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -9,18 +8,20 @@ using UnityEngine;
 
 public class NetworkManager : MonoBehaviour
 {
-    [Header("Network Settings")]
-    public int port = 8888; // ¾Ëªk³W©wªº Port
+    [Header("Server Settings")]
+    public int port = 8888;
 
-    // Åý¨ä¥L¸}¥»©I¥sµo°e«ü¥O
-    public static NetworkManager Instance;
+    [Header("Debug (æŒ‰æ­¤æ¸¬è©¦)")]
+    public bool TestLeft = false;
+    public bool TestRight = false;
+    public bool TestStop = false;
 
     private TcpListener server;
     private Thread serverThread;
+    private List<TcpClient> clients = new List<TcpClient>();
     private bool isRunning = false;
 
-    // Àx¦s ESP32 ªº³s½u
-    private TcpClient esp32Client;
+    public static NetworkManager Instance;
 
     void Awake()
     {
@@ -38,6 +39,19 @@ public class NetworkManager : MonoBehaviour
         StopServer();
     }
 
+    void Update()
+    {
+        // 1. éµç›¤æ¸¬è©¦
+        if (Input.GetKeyDown(KeyCode.Alpha1)) SendToAll("DIR:L");
+        if (Input.GetKeyDown(KeyCode.Alpha2)) SendToAll("DIR:R");
+        if (Input.GetKeyDown(KeyCode.Alpha3)) SendToAll("DIR:S");
+
+        // 2. Inspector æŒ‰éˆ•æ¸¬è©¦ (æ‰“å‹¾å¾Œè‡ªå‹•ç™¼é€ä¸¦å–æ¶ˆå‹¾é¸)
+        if (TestLeft) { SendToAll("DIR:L"); TestLeft = false; }
+        if (TestRight) { SendToAll("DIR:R"); TestRight = false; }
+        if (TestStop) { SendToAll("DIR:S"); TestStop = false; }
+    }
+
     private void StartServer()
     {
         try
@@ -45,14 +59,65 @@ public class NetworkManager : MonoBehaviour
             server = new TcpListener(IPAddress.Any, port);
             server.Start();
             isRunning = true;
-            serverThread = new Thread(ListenLoop);
+
+            serverThread = new Thread(ListenForClients);
             serverThread.IsBackground = true;
             serverThread.Start();
-            Debug.Log($"[TCP] ¦øªA¾¹±Ò°Ê©ó Port {port}¡Aµ¥«Ý ESP32/iPhone ³s½u...");
+
+            Debug.Log($"[TCP] ä¼ºæœå™¨å•Ÿå‹•æ–¼ Port {port}...");
         }
         catch (Exception e)
         {
-            Debug.LogError($"[TCP Error] µLªk±Ò°Ê¦øªA¾¹: {e.Message}");
+            Debug.LogError($"[TCP Error] {e.Message}");
+        }
+    }
+
+    private void ListenForClients()
+    {
+        while (isRunning)
+        {
+            try
+            {
+                TcpClient newClient = server.AcceptTcpClient();
+                lock (clients)
+                {
+                    clients.Add(newClient);
+                }
+                Debug.Log($"[TCP] æ–°è£ç½®é€£ç·š! IP: {((IPEndPoint)newClient.Client.RemoteEndPoint).Address}");
+            }
+            catch { }
+        }
+    }
+
+    public void SendToAll(string message)
+    {
+        if (!message.EndsWith("\n")) message += "\n";
+        byte[] data = Encoding.UTF8.GetBytes(message);
+
+        lock (clients)
+        {
+            // ç§»é™¤æ–·ç·šçš„
+            clients.RemoveAll(c => !c.Connected);
+
+            if (clients.Count == 0)
+            {
+                Debug.LogWarning("âš ï¸ æ²’æœ‰é€£ç·šçš„ ESP32ï¼Œç„¡æ³•ç™¼é€æŒ‡ä»¤ï¼");
+                return;
+            }
+
+            foreach (var client in clients)
+            {
+                try
+                {
+                    NetworkStream stream = client.GetStream();
+                    stream.Write(data, 0, data.Length);
+                    Debug.Log($"[ç™¼é€æˆåŠŸ] -> {message.Trim()}");
+                }
+                catch
+                {
+                    Debug.LogWarning("ç™¼é€å¤±æ•—");
+                }
+            }
         }
     }
 
@@ -60,79 +125,7 @@ public class NetworkManager : MonoBehaviour
     {
         isRunning = false;
         if (server != null) server.Stop();
-        if (serverThread != null && serverThread.IsAlive) serverThread.Abort();
-    }
-
-    private void ListenLoop()
-    {
-        while (isRunning)
-        {
-            try
-            {
-                // µ¥«Ý³s½u (·|¥d¦íª½¨ì¦³¤H³s¶i¨Ó)
-                TcpClient client = server.AcceptTcpClient();
-                Debug.Log("[TCP] ·s¸Ë¸m³s½u¡I");
-
-                // ¬°¤FÂ²³æ°_¨£¡A§Ú­Ì°²³]³Ì«á¤@­Ó³s¶i¨Óªº¦pªG¬O ESP32¡A´N§â¥¦¦s°_¨Ó
-                // ³o¸Ì¶}¤@­Ó·s°õ¦æºü¥h³B²z³o­Ó«È¤áºÝ
-                Thread clientThread = new Thread(() => HandleClient(client));
-                clientThread.IsBackground = true;
-                clientThread.Start();
-            }
-            catch (SocketException) { break; }
-        }
-    }
-
-    private void HandleClient(TcpClient client)
-    {
-        // °²³]³o¬O ESP32¡A¦s°_¨Ó¥H«Kµy«áµo°e«ü¥O
-        esp32Client = client;
-
-        try
-        {
-            NetworkStream stream = client.GetStream();
-            byte[] buffer = new byte[1024];
-
-            while (client.Connected)
-            {
-                int bytesRead = stream.Read(buffer, 0, buffer.Length);
-                if (bytesRead == 0) break;
-
-                string msg = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                // ³o¸Ì¥¼¨Ó·|³B²z iPhone ¶Ç¨Óªº¦a¹Ï JSON
-                // ¥Ø«e¥ý³æ¯Â¦L¥X¨Ó
-                // Debug.Log($"[Recv] {msg}");
-            }
-        }
-        catch { }
-        finally
-        {
-            Debug.Log("¸Ë¸mÂ_½u");
-            client.Close();
-        }
-    }
-
-    // === ¤½¥Î¥\¯à¡Gµo°e«ü¥Oµ¹ ESP32 ===
-    // ¦b¨ä¥L¸}¥»©I¥s NetworkManager.Instance.SendToESP32("DIR:L");
-    public void SendToESP32(string message)
-    {
-        if (esp32Client != null && esp32Client.Connected)
-        {
-            try
-            {
-                NetworkStream stream = esp32Client.GetStream();
-                byte[] data = Encoding.UTF8.GetBytes(message + "\n");
-                stream.Write(data, 0, data.Length);
-                Debug.Log($"[Sent to ESP32] {message}");
-            }
-            catch (Exception e)
-            {
-                Debug.LogWarning("µo°e¥¢±Ñ: " + e.Message);
-            }
-        }
-        else
-        {
-            Debug.LogWarning("ESP32 ©|¥¼³s½u¡I");
-        }
+        if (serverThread != null) serverThread.Abort();
+        foreach (var c in clients) c.Close();
     }
 }

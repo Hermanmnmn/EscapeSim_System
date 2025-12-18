@@ -475,6 +475,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkManager
   port: 8888
+  TestLeft: 0
+  TestRight: 0
+  TestStop: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,6 +709,7 @@ MonoBehaviour:
   Switch: 0
   Button: 0
   Fire: 0
+  rawDataDisplay: 
 --- !u!1 &2146581942
 GameObject:
   m_ObjectHideFlags: 0

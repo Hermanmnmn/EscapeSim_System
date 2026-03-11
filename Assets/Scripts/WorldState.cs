@@ -28,10 +28,12 @@ public class WorldState : MonoBehaviour
     public ConcurrentQueue<Vector3> IncomingMapPoints = new ConcurrentQueue<Vector3>();
     public Vector3 CursorPosition;
 
-    [Header("模擬統計")]
+    [Header("模擬設定與統計")]
+    public int RandomSeed = 42;              // 亂數種子 (Monte Carlo)
     public float SimulationStartTime = 0f;   // 模擬開始時間 (Time.time)
     public float SimulationTime = 0f;        // 模擬經過時間
     public int EvacuatedCount = 0;           // 成功逃生人數
+    public int ActiveAgentCount = 0;         // 場上活動人數
     void Awake()
     {
         

@@ -1,0 +1,34 @@
+AgentID,SpawnZone,EscapeTime(s),ExitUsed
+105,School Table,0.03,Group 5639
+158,School Table,0.03,Group 5639
+16,School Table,23.63,Group 5639
+26,School Table,48.91,Exit_Sub2
+70,School Table,55.41,Group 5639
+8,School Table,58.59,Exit_Sub_Main
+41,Typical School Chair and Table 4,61.46,Exit_Sub_Main
+66,Typical School Chair and Table 13,69.43,Exit_Sub2
+93,Typical School Chair and Table 19,71.28,Group 5639
+65,Typical School Chair and Table 12,73.21,Exit_Sub2
+73,Typical School Chair and Table 13,73.79,Exit_Sub2
+85,Typical School Chair and Table 16,77.35,Exit_Sub_Main
+36,School Table,82.25,Exit_Sub3
+5,Typical School Chair and Table 19,83.85,Group 5639
+51,Typical School Chair and Table,92.12,Exit_Sub1
+53,Typical School Chair and Table 19,94.92,Group 5639
+100,Typical School Chair and Table 14,98.05,Exit_Sub2
+123,School Table,98.63,Exit_Sub2
+101,School Table,99.23,Exit_Sub1
+17,School Table,101.66,Exit_Sub_Main
+22,Typical School Chair and Table 10,103.79,Exit_Sub3
+164,School Table,106.94,Group 5639
+45,School Table,106.98,Group 5639
+90,School Table,107.12,Exit_Sub1
+30,Typical School Chair and Table 5,107.92,Group 5639
+29,Typical School Chair and Table 8,108.90,Group 5639
+107,School Table,109.92,Exit_Sub1
+23,Typical School Chair and Table 17,111.50,Group 5639
+142,School Table,112.36,Exit_Sub2
+27,School Table,113.70,Group 5639
+47,School Table,115.48,Exit_Sub_Main
+87,Typical School Chair and Table 13,116.44,Group 5639
+115,School Table,118.92,Exit_Sub1

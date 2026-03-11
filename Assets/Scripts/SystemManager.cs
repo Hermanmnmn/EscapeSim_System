@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 using System.Collections.Generic;
 
 public class SystemManager : MonoBehaviour
@@ -22,6 +23,7 @@ public class SystemManager : MonoBehaviour
 
     // 系統狀態
     public static bool IsSimulationActive = false;
+    public static bool IsAutoMode = false; // 自動化模式標記
 
     // 快取
     private Camera _mainCam;
@@ -34,20 +36,34 @@ public class SystemManager : MonoBehaviour
     void Start()
     {
         _mainCam = Camera.main;
+        
+        // 確保一致的隨機行為 (Monte Carlo simulation)
+        if (WorldState.Instance != null)
+        {
+            UnityEngine.Random.InitState(WorldState.Instance.RandomSeed);
+        }
     }
 
     void Update()
     {
         if (WorldState.Instance == null) return;
 
-        // ── 1. 總開關 ──────────────────────────────────────────────────        // 1. 總開關與時空暫停
-        // 暫停時只鎖定 Time.timeScale 讓 Agent 停下，但不 return，確保無人機還能動
-        if (WorldState.Instance.Switch == 1) {
-            Time.timeScale = 1f;
-            IsSimulationActive = true;
-        } else {
-            Time.timeScale = 0f;
-            IsSimulationActive = false;
+        // 自動化實驗保護：如果在做自動化實驗，跳過硬體 Switch 檢查，讓 ExperimentRunner 自己管
+        ExperimentRunner expRunner = FindObjectOfType<ExperimentRunner>();
+        bool isAutomated = (expRunner != null && expRunner.IsRunning()) || IsAutoMode;
+
+        // ── 1. 總開關 ──────────────────────────────────────────────────        
+        // 1. 總開關與時空暫停
+        if (!isAutomated)
+        {
+            // 暫停時只鎖定 Time.timeScale 讓 Agent 停下，但不 return，確保無人機還能動
+            if (WorldState.Instance.Switch == 1) {
+                Time.timeScale = 1f;
+                IsSimulationActive = true;
+            } else {
+                Time.timeScale = 0f;
+                IsSimulationActive = false;
+            }
         }
 
         // ── 2. SimulationTime 計時（只在 Switch==1 時增加）────────────
@@ -137,10 +153,12 @@ public class SystemManager : MonoBehaviour
         // ── 7. 鍵盤：P 生成群眾 ────────────────────────────────────────
         if (Keyboard.current != null && Keyboard.current.pKey.wasPressedThisFrame)
         {
-            if (spawner != null)
-                spawner.SpawnAll();
+            MultiZoneSpawner activeSpawner = spawner != null ? spawner : FindObjectOfType<MultiZoneSpawner>();
+            
+            if (activeSpawner != null)
+                StartCoroutine(SpawnAndStartEvacuationRoutine(activeSpawner));
             else
-                Debug.LogWarning("未綁定 Spawner！");
+                Debug.LogWarning("SystemManager: 未綁定且找不到 Spawner！");
         }
 
         // ── 8. 鍵盤：R 軟重置 ──────────────────────────────────────────
@@ -174,10 +192,27 @@ public class SystemManager : MonoBehaviour
         WorldState.Instance.SimulationStartTime = -1f;
 
         // 重新生成群眾
-        if (spawner != null)
-            spawner.SpawnAll();
+        MultiZoneSpawner activeSpawner = spawner != null ? spawner : FindObjectOfType<MultiZoneSpawner>();
+        if (activeSpawner != null)
+            StartCoroutine(SpawnAndStartEvacuationRoutine(activeSpawner));
         else
-            Debug.LogWarning("Soft Reset：未綁定 Spawner，無法重新生成！");
+            Debug.LogWarning("Soft Reset：未綁定且找不到 Spawner，無法重新生成！");
+    }
+
+    private IEnumerator SpawnAndStartEvacuationRoutine(MultiZoneSpawner activeSpawner)
+    {
+        // 1. 生成所有小人
+        activeSpawner.SpawnAll();
+        
+        // 2. 延遲 0.5 秒等待 NavMesh 初始化
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        // 3. 統一發送尋路請求 (防卡頓)
+        CrowdAgent[] allAgents = FindObjectsOfType<CrowdAgent>();
+        foreach (var agent in allAgents)
+        {
+            agent.StartEvacuation();
+        }
     }
 
     // ─────────────────────────────────────────────────────────────────

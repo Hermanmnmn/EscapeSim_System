@@ -13,9 +13,10 @@ public class DynamicSign : MonoBehaviour
     public Transform DefaultExit;                       // 預設出口（正常時導向）
     public List<Transform> AlternativeExits;            // 備用出口列表（擁擠時輪流分配）
 
-    [Header("感測器設定")]
-    public ZoneSensor monitoredZone;                    // 監控的區域感測器
-    public int crowdThreshold = 50;                     // 擁擠判定閾值
+    [Header("感測器設定 (防震盪)")]
+    public ZoneSensor defaultExitZone;                  // 預設出口區域 (DefaultExit_Queue)
+    public ZoneSensor alternativeExitZone;              // 備用出口區域 (AlternativeExit_Queue)
+    public int hysteresisThreshold = 10;                // 緩衝閾值 (Hysteresis)
 
     [Header("即時狀態 (唯讀)")]
     public bool isDiverting = false;                    // 目前是否啟動分流
@@ -32,8 +33,10 @@ public class DynamicSign : MonoBehaviour
             Debug.LogWarning($"[DynamicSign] {gameObject.name} 的 Collider 已自動設為 Trigger");
         }
 
-        if (monitoredZone == null)
-            Debug.LogWarning($"[DynamicSign] {gameObject.name} 未指定 monitoredZone！");
+        if (defaultExitZone == null)
+            Debug.LogWarning($"[DynamicSign] {gameObject.name} 未指定 defaultExitZone！");
+        if (alternativeExitZone == null)
+            Debug.LogWarning($"[DynamicSign] {gameObject.name} 未指定 alternativeExitZone！");
         if (DefaultExit == null)
             Debug.LogWarning($"[DynamicSign] {gameObject.name} 未指定 DefaultExit！");
         if (AlternativeExits == null || AlternativeExits.Count == 0)
@@ -42,10 +45,17 @@ public class DynamicSign : MonoBehaviour
 
     void Update()
     {
-        // 根據監控區域的人數決定是否啟動分流
-        if (monitoredZone != null)
+        // 防震盪邏輯 (Hysteresis)
+        int defaultQueue = defaultExitZone != null ? defaultExitZone.CurrentAgentCount : 0;
+        int altQueue = alternativeExitZone != null ? alternativeExitZone.CurrentAgentCount : 0;
+
+        if (!isDiverting && defaultQueue > altQueue + hysteresisThreshold)
         {
-            isDiverting = monitoredZone.CurrentAgentCount > crowdThreshold;
+            isDiverting = true;
+        }
+        else if (isDiverting && defaultQueue < altQueue)
+        {
+            isDiverting = false;
         }
     }
 

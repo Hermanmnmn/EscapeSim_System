@@ -4,16 +4,17 @@ using UnityEngine.AI;
 /// <summary>
 /// 基於課桌椅位置的精確生成系統：
 /// 自動抓取場景中所有 Tag 為 "SpawnDesk" 的桌子，
-/// 在每張桌子旁最近的合法 NavMesh 位置生成一個 Agent。
+/// 隨機分配 Agent 到各桌子旁直到達到指定生成數量。
 /// </summary>
 public class MultiZoneSpawner : MonoBehaviour
 {
     [Header("生成設定")]
     public GameObject agentPrefab;              // CrowdAgent Prefab
     public float navMeshSampleRadius = 1.5f;    // NavMesh 取樣搜尋半徑
+    public int spawnCount = 100;                // 每次生成的目標人數
 
     /// <summary>
-    /// 自動尋找所有 SpawnDesk，在每張桌子旁安全生成一個 Agent
+    /// 自動尋找所有 SpawnDesk，並隨機生成直到滿指定人數 (spawnCount)
     /// </summary>
     public void SpawnAll()
     {
@@ -23,7 +24,6 @@ public class MultiZoneSpawner : MonoBehaviour
             return;
         }
 
-        // 1. 自動抓取場景中所有 Tag 為 "SpawnDesk" 的桌子
         GameObject[] desks = GameObject.FindGameObjectsWithTag("SpawnDesk");
 
         if (desks == null || desks.Length == 0)
@@ -33,25 +33,37 @@ public class MultiZoneSpawner : MonoBehaviour
         }
 
         int totalSpawned = 0;
+        int nextAgentID = 1;
 
-        // 2. 一桌一人：針對每張桌子生成 1 個 Agent
-        foreach (GameObject desk in desks)
+        // 隨機挑選桌子生成直到滿人
+        while (totalSpawned < spawnCount)
         {
-            if (desk == null) continue;
-
-            // 3. NavMesh 安全驗證：尋找桌子周圍最近的合法地板位置
+            GameObject desk = desks[Random.Range(0, desks.Length)];
+            
             NavMeshHit hit;
             if (NavMesh.SamplePosition(desk.transform.position, out hit, navMeshSampleRadius, NavMesh.AllAreas))
             {
-                Instantiate(agentPrefab, hit.position, Quaternion.identity);
+                GameObject newAgent = Instantiate(agentPrefab, hit.position, Quaternion.identity);
+                
+                // 寫入個體追蹤資訊
+                CrowdAgent ca = newAgent.GetComponent<CrowdAgent>();
+                if (ca != null)
+                {
+                    ca.agentID = nextAgentID++;
+                    // 如果桌子有自定義的 Zone 標記就吃該標記，否則用名字
+                    ca.spawnZone = desk.name; 
+                }
+                
                 totalSpawned++;
             }
             else
             {
-                Debug.LogWarning($"[MultiZoneSpawner] {desk.name} 周圍 {navMeshSampleRadius}m 內找不到合法 NavMesh 位置，跳過生成");
+                // 若找不到位置就先跳過，下一個 Loop 再隨機抽
+                continue;
             }
         }
-
-        Debug.Log($"[MultiZoneSpawner] 成功在 {totalSpawned} 張桌子旁生成了 Agent（共找到 {desks.Length} 張桌子）");
+        
+        WorldState.Instance.ActiveAgentCount = totalSpawned;
+        Debug.Log($"[MultiZoneSpawner] 成功在桌子旁生成了 {totalSpawned} 名 Agent");
     }
 }

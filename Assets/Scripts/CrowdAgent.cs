@@ -6,6 +6,11 @@ public class CrowdAgent : MonoBehaviour
     public Transform target;
     private NavMeshAgent agent;
     private bool isEvacuated = false;
+    public float escapeTime = 0f; // 記錄該個體的逃生耗時
+    
+    [Header("實驗數據追蹤")]
+    public int agentID = -1;
+    public string spawnZone = "Unknown";
 
     // 動畫與特效 (如果有的話)
     private Animator anim;
@@ -41,11 +46,7 @@ public class CrowdAgent : MonoBehaviour
             if (agent.enabled && agent.isOnNavMesh) agent.isStopped = false;
         }
 
-        // 4. 正常導航
-        if (target != null && agent.isOnNavMesh && agent.enabled)
-        {
-            agent.SetDestination(target.position);
-        }
+        // (移除連續導航，改用 StartEvacuation 同步觸發)
 
         // 5. 恐慌數值映射 (速度與半徑)
         float panicRatio = WorldState.Instance.KnobSpeed / 1023f;
@@ -70,6 +71,58 @@ public class CrowdAgent : MonoBehaviour
                 if (congestionVFX.isPlaying) congestionVFX.Stop();
             }
         }
+        
+        // 8. 抵達出口判定 (防卡死與防原地踏步機制)
+        if (!isEvacuated && agent.enabled && agent.isOnNavMesh && !agent.pathPending && target != null)
+        {
+            float distToTarget = Vector3.Distance(transform.position, target.position);
+            
+            // 安全抵達：或是因為擠不進 Trigger 但距離已經夠近且降速卡住 (防疊羅漢)
+            if (agent.remainingDistance <= 1.5f || (distToTarget <= 2.0f && agent.velocity.magnitude < 0.1f))
+            {
+                ProcessEvacuation(target.gameObject.name);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 對齊起跑線：統一由總控端發出尋路指令，避免生成時卡頓。
+    /// </summary>
+    public void StartEvacuation()
+    {
+        if (target != null && agent.enabled && agent.isOnNavMesh)
+        {
+            agent.SetDestination(target.position);
+        }
+    }
+
+    // 🚪 處理逃生邏輯獨立拉出
+    private void ProcessEvacuation(string exitName)
+    {
+        if (isEvacuated) return;
+        
+        isEvacuated = true;
+        WorldState.Instance.EvacuatedCount++; // 逃生人數 +1
+        WorldState.Instance.ActiveAgentCount--; // 場上活動人數 -1
+        
+        // 記錄該個體的「逃生耗時」
+        escapeTime = WorldState.Instance.SimulationTime;
+        
+        // 寫入 DataLogger
+        if (DataLogger.Instance != null)
+        {
+            DataLogger.Instance.LogAgentEscape(agentID, spawnZone, escapeTime, exitName);
+        }
+        
+        // 關閉物理與導航，避免引擎當機
+        if (agent.enabled && agent.isOnNavMesh) agent.isStopped = true;
+        agent.enabled = false;
+        
+        var col = GetComponent<Collider>();
+        if (col != null) col.enabled = false;
+        
+        // 避免 GC Spike，直接停用物件而非 Destroy
+        gameObject.SetActive(false);
     }
 
     // 🔥 提供給 DynamicSign 呼叫的換路指令
@@ -82,26 +135,14 @@ public class CrowdAgent : MonoBehaviour
         }
     }
 
-    // 🚪 碰到出口消失與計數
+    // 保留原本的物理觸發器作為第二道防線 (以防有剛體的情況)
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Finish") && !isEvacuated)
         {
-            isEvacuated = true;
-            WorldState.Instance.EvacuatedCount++; // 逃生人數 +1
-            
-            // 關閉物理與導航，避免引擎當機
-            agent.enabled = false;
-            var col = GetComponent<Collider>();
-            if (col != null) col.enabled = false;
-            
-            // 隱藏外觀
-            foreach (Transform child in transform) {
-                child.gameObject.SetActive(false);
-            }
-
-            // 延遲刪除記憶體
-            Destroy(gameObject, 0.5f);
+            // 如果撞到出口，立刻判定逃生，避免疊羅漢
+            ProcessEvacuation(other.gameObject.name);
+            gameObject.SetActive(false); // 確保立刻消失，釋放空間給後方 Agent
         }
     }
 
@@ -126,5 +167,21 @@ public class CrowdAgent : MonoBehaviour
         {
             target = nearestExit;
         }
+    }
+    
+    // --- DataLogger 輔助方法 ---
+    public float GetCurrentSpeed()
+    {
+        return agent != null && agent.enabled ? agent.velocity.magnitude : 0f;
+    }
+
+    public Transform GetDestination()
+    {
+        return target;
+    }
+
+    public bool IsEvacuated()
+    {
+        return isEvacuated;
     }
 }

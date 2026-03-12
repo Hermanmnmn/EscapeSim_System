@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI Text_Time;      // 時間顯示（格式：TIME: X s）
     public TextMeshProUGUI Text_Escaped;   // 逃生人數（格式：ESCAPED: X）
     public TextMeshProUGUI densityText;
+    public TextMeshProUGUI Text_Speed;     // 模擬倍速（格式：SPEED: Nx）
 
     [Header("Controls Guide")]
     [Tooltip("拖入場景中的 TextMeshProUGUI 物件，用於顯示按鍵說明")]
@@ -17,8 +18,8 @@ public class UIManager : MonoBehaviour
     public ZoneSensor zoneSensor; // 拖入場景中的 ZoneSensor 物件
 
     private const string CONTROLS_GUIDE =
-        "[Space/SW]: Start/Pause  |  [P]: Spawn  |  [R]: Reset\n" +
-        "[V]: Drone View  |  [F]: Free Cam  |  [C]: CCTV  |  [B/Fire Btn]: Toggle Transparency";
+        "[Space/SW]: Start/Pause  |  [P]: Spawn  |  [R]: Reset  |  [B]: Transparency\n" +
+        "[V]: Drone View  |  [F]: Free Cam  |  [C]: CCTV  |  [ / ]: Speed -/+";
 
     void Start()
     {
@@ -57,6 +58,13 @@ public class UIManager : MonoBehaviour
         {
             int density = (zoneSensor != null) ? zoneSensor.CurrentAgentCount : 0;
             densityText.text = $"DENSITY: {density}";
+        }
+
+        // ── 模擬倍速（從 SystemManager.Instance 讀取）──────────────────
+        if (Text_Speed != null)
+        {
+            float spd = SystemManager.Instance != null ? SystemManager.Instance.simulationTimeScale : 1f;
+            Text_Speed.text = $"SPEED: {spd:F0}x";
         }
     }
 }

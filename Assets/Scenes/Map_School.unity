@@ -206,6 +206,7 @@ GameObject:
   - component: {fileID: 21622811}
   - component: {fileID: 21622810}
   - component: {fileID: 21622809}
+  - component: {fileID: 21622813}
   m_Layer: 0
   m_Name: Exit_Sub3
   m_TagString: Finish
@@ -306,6 +307,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &21622813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21622808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d9364a14b9e9f45b3b66d499ef5ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExitNode
+  bottleneckSensor: {fileID: 330101046}
+  penaltyWeight: 0.5
 --- !u!43 &48912441
 Mesh:
   m_ObjectHideFlags: 0
@@ -794,6 +809,7 @@ GameObject:
   - component: {fileID: 64043665}
   - component: {fileID: 64043664}
   - component: {fileID: 64043663}
+  - component: {fileID: 64043667}
   m_Layer: 0
   m_Name: Exit_Sub2
   m_TagString: Finish
@@ -887,13 +903,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 64043662}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -98.55, y: 3.9, z: 71.42}
-  m_LocalScale: {x: 10.429989, y: 6.383487, z: 0.35758}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -18.9, y: 3.95, z: 160.31}
+  m_LocalScale: {x: 5.1756735, y: 6.1072097, z: 0.35758}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &64043667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64043662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d9364a14b9e9f45b3b66d499ef5ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExitNode
+  bottleneckSensor: {fileID: 0}
+  penaltyWeight: 0.5
 --- !u!1 &84406722 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8520464322667236473, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
@@ -1056,6 +1086,7 @@ GameObject:
   - component: {fileID: 120552165}
   - component: {fileID: 120552164}
   - component: {fileID: 120552163}
+  - component: {fileID: 120552167}
   m_Layer: 0
   m_Name: Exit_Sub1
   m_TagString: Finish
@@ -1156,6 +1187,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &120552167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120552162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d9364a14b9e9f45b3b66d499ef5ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExitNode
+  bottleneckSensor: {fileID: 689914705}
+  penaltyWeight: 0.5
 --- !u!1 &122455882 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7652120973891487789, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
@@ -2335,7 +2380,7 @@ Transform:
   m_GameObject: {fileID: 245715467}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -77.54, y: -0, z: 126.47501}
+  m_LocalPosition: {x: -75.91, y: -0, z: 126.47501}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3472,6 +3517,161 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!1 &330101043
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 330101050}
+  - component: {fileID: 330101049}
+  - component: {fileID: 330101048}
+  - component: {fileID: 330101047}
+  - component: {fileID: 330101046}
+  - component: {fileID: 330101045}
+  - component: {fileID: 330101044}
+  m_Layer: 0
+  m_Name: ZoneSensor stair (11)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &330101044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330101043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d9364a14b9e9f45b3b66d499ef5ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExitNode
+  bottleneckSensor: {fileID: 0}
+  penaltyWeight: 0.5
+--- !u!114 &330101045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330101043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7744dc11d951f9343bb9534bed532e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmartSign
+  lastChosenExit: None
+--- !u!114 &330101046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330101043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63f4b9c168ac0024e93d206dfafa55a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZoneSensor
+  CurrentAgentCount: 0
+--- !u!65 &330101047
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330101043}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &330101048
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330101043}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 3485cc2f616336c48ac6d06f95a0fd36, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &330101049
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330101043}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &330101050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330101043}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.18, y: 11.49, z: -5.04}
+  m_LocalScale: {x: 5, y: 3, z: 5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &334356386 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2197244443662019934, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
@@ -5881,13 +6081,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 507407894}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -133.47472, y: 1.799, z: 149.415}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!43 &529332171
 Mesh:
   m_ObjectHideFlags: 0
@@ -6154,6 +6354,7 @@ GameObject:
   - component: {fileID: 549891758}
   - component: {fileID: 549891757}
   - component: {fileID: 549891756}
+  - component: {fileID: 549891761}
   m_Layer: 0
   m_Name: ZoneSensor stair (3)
   m_TagString: Untagged
@@ -6267,6 +6468,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &549891761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549891755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7744dc11d951f9343bb9534bed532e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmartSign
+  lastChosenExit: None
 --- !u!1 &553036148
 GameObject:
   m_ObjectHideFlags: 0
@@ -7332,7 +7546,7 @@ GameObject:
   - component: {fileID: 689914706}
   - component: {fileID: 689914705}
   m_Layer: 0
-  m_Name: ZoneSensor stair (4)
+  m_Name: ZoneSensor stair (4)_noSmartSign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9078,6 +9292,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1991029965}
     - target: {fileID: 7989777369028794120, guid: 099b3523fce01c7409119d955bfafc62, type: 3}
+      propertyPath: Text_Speed
+      value: 
+      objectReference: {fileID: 1307670862}
+    - target: {fileID: 7989777369028794120, guid: 099b3523fce01c7409119d955bfafc62, type: 3}
       propertyPath: statusText
       value: 
       objectReference: {fileID: 1991029966}
@@ -9401,6 +9619,7 @@ GameObject:
   - component: {fileID: 882354419}
   - component: {fileID: 882354418}
   - component: {fileID: 882354417}
+  - component: {fileID: 882354422}
   m_Layer: 0
   m_Name: ZoneSensor stair (7)
   m_TagString: Untagged
@@ -9514,6 +9733,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &882354422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882354416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7744dc11d951f9343bb9534bed532e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmartSign
+  lastChosenExit: None
 --- !u!43 &895738336
 Mesh:
   m_ObjectHideFlags: 0
@@ -11749,6 +11981,7 @@ GameObject:
   - component: {fileID: 1136418266}
   - component: {fileID: 1136418265}
   - component: {fileID: 1136418264}
+  - component: {fileID: 1136418268}
   m_Layer: 0
   m_Name: Exit_Sub_Main
   m_TagString: Finish
@@ -11849,6 +12082,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &1136418268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136418263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d9364a14b9e9f45b3b66d499ef5ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExitNode
+  bottleneckSensor: {fileID: 882354417}
+  penaltyWeight: 0.5
 --- !u!1 &1140640461 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2480475615158281843, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
@@ -12626,6 +12873,143 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!1 &1307670860
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1307670861}
+  - component: {fileID: 1307670863}
+  - component: {fileID: 1307670862}
+  m_Layer: 5
+  m_Name: TextMeshProUGUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1307670861
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307670860}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1991029971}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1307670862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307670860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: New Text
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1307670863
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307670860}
+  m_CullTransparentMesh: 1
 --- !u!1 &1313778271 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3659036808999786697, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
@@ -13021,9 +13405,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ExperimentRunner
   populations: fa000000f4010000e8030000
   seeds: 2a00000065000000e7030000
+  activeSignCounts: 0000000002000000050000000a000000
   systemManager: {fileID: 1849046289}
   dataLogger: {fileID: 1345565738}
   spawner: {fileID: 1345565741}
+  maxSimulationTime: 300
 --- !u!4 &1345565740
 Transform:
   m_ObjectHideFlags: 0
@@ -13327,13 +13713,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1408818913}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -3.23137, y: 3.61467, z: -15.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1411829164 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7201431564114602138, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
@@ -13372,6 +13758,7 @@ GameObject:
   - component: {fileID: 1420026644}
   - component: {fileID: 1420026643}
   - component: {fileID: 1420026647}
+  - component: {fileID: 1420026648}
   m_Layer: 0
   m_Name: ZoneSensor stair
   m_TagString: Untagged
@@ -13485,6 +13872,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZoneSensor
   CurrentAgentCount: 0
+--- !u!114 &1420026648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420026642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7744dc11d951f9343bb9534bed532e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmartSign
+  lastChosenExit: None
 --- !u!1 &1425701342 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3053564720134287729, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
@@ -14719,13 +15119,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1670334797}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -131.67514, y: 1.39714, z: 149.52129}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -136.69, y: 1.39714, z: 149.52129}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1673754750 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2934573484792225650, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
@@ -16722,6 +17122,7 @@ MonoBehaviour:
   moveSpeed: 10
   heightScale: 10
   mapSize: 50
+  simulationTimeScale: 1
 --- !u!4 &1849046290
 Transform:
   m_ObjectHideFlags: 0
@@ -16770,6 +17171,7 @@ GameObject:
   - component: {fileID: 1849096246}
   - component: {fileID: 1849096245}
   - component: {fileID: 1849096244}
+  - component: {fileID: 1849096249}
   m_Layer: 0
   m_Name: ZoneSensor stair (6)
   m_TagString: Untagged
@@ -16883,6 +17285,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1849096249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849096243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7744dc11d951f9343bb9534bed532e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmartSign
+  lastChosenExit: None
 --- !u!1 &1863667188 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1940280594517372997, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
@@ -17270,6 +17685,7 @@ GameObject:
   - component: {fileID: 1901907044}
   - component: {fileID: 1901907043}
   - component: {fileID: 1901907042}
+  - component: {fileID: 1901907047}
   m_Layer: 0
   m_Name: ZoneSensor stair (1)
   m_TagString: Untagged
@@ -17383,6 +17799,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1901907047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1901907041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7744dc11d951f9343bb9534bed532e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmartSign
+  lastChosenExit: None
 --- !u!43 &1907743612
 Mesh:
   m_ObjectHideFlags: 0
@@ -53994,6 +54423,7 @@ GameObject:
   - component: {fileID: 1974448753}
   - component: {fileID: 1974448752}
   - component: {fileID: 1974448751}
+  - component: {fileID: 1974448756}
   m_Layer: 0
   m_Name: ZoneSensor stair (5)
   m_TagString: Untagged
@@ -54107,6 +54537,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1974448756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974448750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7744dc11d951f9343bb9534bed532e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmartSign
+  lastChosenExit: None
 --- !u!1 &1983017494 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4167037767345066406, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
@@ -54414,6 +54857,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2697169776671591382, guid: 569e0a2d59f4f9145aec41d2753f1c29, type: 3}
       insertIndex: -1
       addedObject: {fileID: 255325507}
+    - targetCorrespondingSourceObject: {fileID: 2697169776671591382, guid: 569e0a2d59f4f9145aec41d2753f1c29, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1307670861}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 371788106156177322, guid: 569e0a2d59f4f9145aec41d2753f1c29, type: 3}
       insertIndex: -1
@@ -55002,6 +55448,7 @@ GameObject:
   - component: {fileID: 2036870627}
   - component: {fileID: 2036870626}
   - component: {fileID: 2036870625}
+  - component: {fileID: 2036870630}
   m_Layer: 0
   m_Name: ZoneSensor stair (2)
   m_TagString: Untagged
@@ -55115,6 +55562,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2036870630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036870624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7744dc11d951f9343bb9534bed532e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmartSign
+  lastChosenExit: None
 --- !u!1 &2039527370 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -9100841370185140048, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
@@ -55153,6 +55613,7 @@ GameObject:
   - component: {fileID: 2049713617}
   - component: {fileID: 2049713616}
   - component: {fileID: 2049713615}
+  - component: {fileID: 2049713620}
   m_Layer: 0
   m_Name: ZoneSensor stair (9)
   m_TagString: Untagged
@@ -55266,6 +55727,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2049713620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049713614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7744dc11d951f9343bb9534bed532e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmartSign
+  lastChosenExit: None
 --- !u!1 &2051488413 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8746437578029653284, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
@@ -55404,6 +55878,7 @@ GameObject:
   - component: {fileID: 2081742319}
   - component: {fileID: 2081742318}
   - component: {fileID: 2081742317}
+  - component: {fileID: 2081742322}
   m_Layer: 0
   m_Name: ZoneSensor stair (10)
   m_TagString: Untagged
@@ -55517,6 +55992,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2081742322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081742316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7744dc11d951f9343bb9534bed532e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmartSign
+  lastChosenExit: None
 --- !u!1 &2093638078 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3007041038798004609, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
@@ -55903,6 +56391,7 @@ GameObject:
   - component: {fileID: 2129941275}
   - component: {fileID: 2129941274}
   - component: {fileID: 2129941273}
+  - component: {fileID: 2129941278}
   m_Layer: 0
   m_Name: ZoneSensor stair (8)
   m_TagString: Untagged
@@ -56016,6 +56505,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2129941278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129941272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7744dc11d951f9343bb9534bed532e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmartSign
+  lastChosenExit: None
 --- !u!1 &2134252106 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8972377201926233124, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
@@ -56248,6 +56750,7 @@ SceneRoots:
   - {fileID: 2129941277}
   - {fileID: 2049713619}
   - {fileID: 2081742321}
+  - {fileID: 330101050}
   - {fileID: 1518470512}
   - {fileID: 1816609921}
   - {fileID: 1032876059}

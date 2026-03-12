@@ -11,7 +11,7 @@ public class DataLogger : MonoBehaviour
 
     [Header("設定")]
     public float logInterval = 1f; // 每幾秒記錄一次
-    public string logDirectory = "SimulationLogs";
+    public string logDirectory = "LogBook";
     
     // 即時快取
     private ZoneSensor[] _zoneSensors;
@@ -44,7 +44,7 @@ public class DataLogger : MonoBehaviour
         _currentSeed = seed;
         
         // 尋找場上的感測與出口
-        _zoneSensors = FindObjectsOfType<ZoneSensor>();
+        _zoneSensors = FindObjectsByType<ZoneSensor>(FindObjectsSortMode.None);
         _exits = GameObject.FindGameObjectsWithTag("Finish");
         
         _mainLogCsv = new StringBuilder();
@@ -92,7 +92,7 @@ public class DataLogger : MonoBehaviour
             // 計算全場平均速度
             float avgSpeed = 0f;
             int speedCount = 0;
-            var allAgents = FindObjectsOfType<CrowdAgent>(); // (如果人數多這裡可優化，或透過 WorldState 追蹤)
+            var allAgents = FindObjectsByType<CrowdAgent>(FindObjectsSortMode.None); // (如果人數多這裡可優化，或透過 WorldState 追蹤)
             
             foreach (var a in allAgents)
             {
@@ -159,7 +159,8 @@ public class DataLogger : MonoBehaviour
         _isLogging = false; StopAllCoroutines();
 
         string timestamp = System.DateTime.Now.ToString("yyyyMMdd_HHmmss");
-        string dirPath = Path.Combine(Application.persistentDataPath, logDirectory);
+        string dirPath = Path.Combine(Application.dataPath, "..", logDirectory);
+        dirPath = Path.GetFullPath(dirPath); // 取絕對路徑，方便 Debug 顯示
         if (!Directory.Exists(dirPath))
             Directory.CreateDirectory(dirPath);
 

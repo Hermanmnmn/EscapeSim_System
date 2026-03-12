@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour
     public enum CameraMode { Free, DroneThirdPerson, DroneFirstPerson, CCTV }
 
     [Header("模式設定")]
-    public CameraMode currentMode = CameraMode.DroneThirdPerson;
+    public CameraMode currentMode = CameraMode.Free;
 
     [Header("跟隨設定 (Drone)")]
     public Transform target;       // 放入 GodCursor

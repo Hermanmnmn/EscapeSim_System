@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 public class SystemManager : MonoBehaviour
 {
+    // ── Singleton ─────────────────────────────────────────────────────
+    public static SystemManager Instance { get; private set; }
+
     [Header("連結物件")]
     public Transform godCursor;
     public GameObject wallPrefab;
@@ -18,7 +21,11 @@ public class SystemManager : MonoBehaviour
     public float heightScale = 10f;
     public float mapSize = 50f;
 
-    // 全域速度倍率
+    [Header("模擬速度")]
+    [Range(1f, 10f)]
+    public float simulationTimeScale = 1.0f; // 目前的模擬倍速 (1x ~ 10x)
+
+    // 全域速度倍率（由搖桿 KnobSpeed 控制）
     public static float GlobalSpeedMultiplier = 1f;
 
     // 系統狀態
@@ -33,6 +40,13 @@ public class SystemManager : MonoBehaviour
     // 透明度鍵盤 rising edge
     private bool _prevBKey = false;
 
+    void Awake()
+    {
+        // Singleton 設定
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
+
     void Start()
     {
         _mainCam = Camera.main;
@@ -44,24 +58,43 @@ public class SystemManager : MonoBehaviour
         }
     }
 
+    // ─────────────────────────────────────────────────────────────────
+    /// <summary>
+    /// 設定模擬速度倍率，同步更新 Time.timeScale 與 Time.fixedDeltaTime。
+    /// 只有在 Switch == 1（模擬進行中）時才會實際改變 timeScale；
+    /// Switch == 0 時僅儲存設定值，等待恢復時使用。
+    /// </summary>
+    public void SetSimulationSpeed(float scale)
+    {
+        simulationTimeScale = Mathf.Clamp(scale, 1f, 10f);
+
+        if (WorldState.Instance != null && WorldState.Instance.Switch == 1)
+        {
+            Time.timeScale = simulationTimeScale;
+            Time.fixedDeltaTime = 0.02f * Time.timeScale; // 物理防失真
+        }
+    }
+
     void Update()
     {
         if (WorldState.Instance == null) return;
 
         // 自動化實驗保護：如果在做自動化實驗，跳過硬體 Switch 檢查，讓 ExperimentRunner 自己管
-        ExperimentRunner expRunner = FindObjectOfType<ExperimentRunner>();
+        ExperimentRunner expRunner = FindAnyObjectByType<ExperimentRunner>();
         bool isAutomated = (expRunner != null && expRunner.IsRunning()) || IsAutoMode;
 
         // ── 1. 總開關 ──────────────────────────────────────────────────        
-        // 1. 總開關與時空暫停
         if (!isAutomated)
         {
-            // 暫停時只鎖定 Time.timeScale 讓 Agent 停下，但不 return，確保無人機還能動
+            // Switch == 1：恢復到使用者設定的模擬倍速
+            // Switch == 0：暫停，timeScale = 0，但保留 simulationTimeScale 設定值等待恢復
             if (WorldState.Instance.Switch == 1) {
-                Time.timeScale = 1f;
+                Time.timeScale = simulationTimeScale;
+                Time.fixedDeltaTime = 0.02f * Time.timeScale;
                 IsSimulationActive = true;
             } else {
                 Time.timeScale = 0f;
+                Time.fixedDeltaTime = 0.02f; // 重置物理時步
                 IsSimulationActive = false;
             }
         }
@@ -121,10 +154,7 @@ public class SystemManager : MonoBehaviour
                 pos.z += inputZ * moveSpeed * Time.unscaledDeltaTime;
             }
 
-            // 高度控制也用 unscaled
-            // pos.y = (rawH / 1023f) * heightScale; // 這裡可以考慮是否要平滑一點
             float targetY = (rawH / 1023f) * heightScale;
-            // 使用 unscaledDeltaTime 進行平滑高度調整，確保暫停時也能反應
             pos.y = Mathf.Lerp(pos.y, targetY, 1.0f - Mathf.Exp(-5f * Time.unscaledDeltaTime));
 
             pos.x = Mathf.Clamp(pos.x, -mapSize, mapSize);
@@ -153,7 +183,7 @@ public class SystemManager : MonoBehaviour
         // ── 7. 鍵盤：P 生成群眾 ────────────────────────────────────────
         if (Keyboard.current != null && Keyboard.current.pKey.wasPressedThisFrame)
         {
-            MultiZoneSpawner activeSpawner = spawner != null ? spawner : FindObjectOfType<MultiZoneSpawner>();
+            MultiZoneSpawner activeSpawner = spawner != null ? spawner : FindAnyObjectByType<MultiZoneSpawner>();
             
             if (activeSpawner != null)
                 StartCoroutine(SpawnAndStartEvacuationRoutine(activeSpawner));
@@ -165,6 +195,19 @@ public class SystemManager : MonoBehaviour
         if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
         {
             PerformSoftReset();
+        }
+
+        // ── 9. 模擬速度快捷鍵：[ 減速 / ] 加速 ──────────────────────────
+        if (Keyboard.current != null)
+        {
+            if (Keyboard.current.leftBracketKey.wasPressedThisFrame)
+            {
+                SetSimulationSpeed(simulationTimeScale - 1f);
+            }
+            else if (Keyboard.current.rightBracketKey.wasPressedThisFrame)
+            {
+                SetSimulationSpeed(simulationTimeScale + 1f);
+            }
         }
     }
 
@@ -192,7 +235,7 @@ public class SystemManager : MonoBehaviour
         WorldState.Instance.SimulationStartTime = -1f;
 
         // 重新生成群眾
-        MultiZoneSpawner activeSpawner = spawner != null ? spawner : FindObjectOfType<MultiZoneSpawner>();
+        MultiZoneSpawner activeSpawner = spawner != null ? spawner : FindAnyObjectByType<MultiZoneSpawner>();
         if (activeSpawner != null)
             StartCoroutine(SpawnAndStartEvacuationRoutine(activeSpawner));
         else
@@ -208,7 +251,7 @@ public class SystemManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
 
         // 3. 統一發送尋路請求 (防卡頓)
-        CrowdAgent[] allAgents = FindObjectsOfType<CrowdAgent>();
+        CrowdAgent[] allAgents = FindObjectsByType<CrowdAgent>(FindObjectsSortMode.None);
         foreach (var agent in allAgents)
         {
             agent.StartEvacuation();

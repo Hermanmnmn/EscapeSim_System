@@ -11272,7 +11272,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MultiZoneSpawner
   agentPrefab: {fileID: 3506301340282284993, guid: 665f9ca9af7448b47b61874b592aad8b, type: 3}
   navMeshSampleRadius: 1.5
-  spawnCount: 100
 --- !u!4 &1032876059
 Transform:
   m_ObjectHideFlags: 0
@@ -13403,13 +13402,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed344ef71ff72a5439cf547e53fe9ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExperimentRunner
-  populations: fa000000f4010000e8030000
+  populations: f4010000e8030000dc050000
   seeds: 2a00000065000000e7030000
   activeSignCounts: 0000000002000000050000000a000000
   systemManager: {fileID: 1849046289}
   dataLogger: {fileID: 1345565738}
   spawner: {fileID: 1345565741}
   maxSimulationTime: 300
+  pathWaitTimeout: 180
 --- !u!4 &1345565740
 Transform:
   m_ObjectHideFlags: 0
@@ -13439,7 +13439,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MultiZoneSpawner
   agentPrefab: {fileID: 3506301340282284993, guid: 665f9ca9af7448b47b61874b592aad8b, type: 3}
   navMeshSampleRadius: 1.5
-  spawnCount: 100
 --- !u!1 &1366110293 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4226266591805484223, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
@@ -26972,6 +26971,10 @@ PrefabInstance:
     - target: {fileID: -4902155469976041328, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -4900701542667259178, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
+      propertyPath: m_TagString
+      value: SpawnDesk
       objectReference: {fileID: 0}
     - target: {fileID: -4900701542667259178, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -40815,7 +40818,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2463256541256033502, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
       propertyPath: m_TagString
-      value: Finish
+      value: SpawnDesk
       objectReference: {fileID: 0}
     - target: {fileID: 2463256541256033502, guid: ea150b43a3e336d41a9f30c502114e03, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -56728,6 +56731,7 @@ SceneRoots:
   - {fileID: 1964039717}
   - {fileID: 1849046290}
   - {fileID: 1257112794}
+  - {fileID: 1345565740}
   - {fileID: 1405290330}
   - {fileID: 470319686}
   - {fileID: 1007591976}
@@ -56758,7 +56762,6 @@ SceneRoots:
   - {fileID: 507407895}
   - {fileID: 1408818914}
   - {fileID: 1670334798}
-  - {fileID: 1345565740}
   - {fileID: 1080454413}
   - {fileID: 829613563}
   - {fileID: 493698167}

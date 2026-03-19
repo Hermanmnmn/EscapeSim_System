@@ -1,0 +1,1001 @@
+AgentID,SpawnZone,EscapeTime(s),ExitUsed,Seed,ActiveSigns
+926,stand,0.55,Exit_Sub3,0,2
+757,pedestal,4.30,Exit_Sub2,0,2
+900,School Table,7.22,Exit_Sub3,0,2
+519,pedestal,14.13,Exit_Sub2,0,2
+48,School Table,20.72,Exit_Sub_Main,0,2
+735,Typical School Chair and Table 10,22.50,Exit_Sub3,0,2
+875,School Table,22.91,Exit_Sub1,0,2
+699,Typical School Chair and Table 15,27.62,Exit_Sub2,0,2
+906,Typical School Chair and Table 17,27.66,Exit_Sub3,0,2
+326,School Table,28.08,Exit_Sub2,0,2
+340,Typical School Chair and Table 5,31.11,Exit_Sub_Main,0,2
+229,pedestal,32.18,Exit_Sub3,0,2
+718,School Table,32.76,Exit_Sub3,0,2
+255,Typical School Chair and Table 15,33.79,Exit_Sub3,0,2
+939,School Table,34.93,Exit_Sub_Main,0,2
+219,School Table,35.48,Exit_Sub2,0,2
+458,Typical School Chair and Table 14,35.64,Exit_Sub2,0,2
+423,School Table,35.90,Exit_Sub_Main,0,2
+764,Typical School Chair and Table 19,36.70,Exit_Sub3,0,2
+43,pedestal,38.14,Exit_Sub2,0,2
+108,School Table,38.14,Exit_Sub3,0,2
+834,School Table,38.64,Exit_Sub_Main,0,2
+798,School Table,39.44,Exit_Sub_Main,0,2
+4,School Table,41.25,Exit_Sub1,0,2
+339,School Table,41.59,Exit_Sub_Main,0,2
+548,Typical School Chair and Table 12,42.47,Exit_Sub2,0,2
+940,Typical School Chair and Table 16,42.92,Exit_Sub1,0,2
+631,pedestal,43.13,Exit_Sub_Main,0,2
+955,Typical School Chair and Table,45.58,Exit_Sub_Main,0,2
+695,School Table,45.96,Exit_Sub_Main,0,2
+111,Typical School Chair and Table 16,45.99,Exit_Sub2,0,2
+351,School Table,46.20,Exit_Sub3,0,2
+347,Typical School Chair and Table 14,46.41,Exit_Sub3,0,2
+349,School Table,47.06,Exit_Sub_Main,0,2
+489,Typical School Chair and Table 10,47.25,Exit_Sub2,0,2
+337,Typical School Chair and Table 20,47.64,Exit_Sub_Main,0,2
+908,Typical School Chair and Table 7,48.67,Exit_Sub1,0,2
+623,Typical School Chair and Table 16,51.51,Exit_Sub_Main,0,2
+539,Typical School Chair and Table 1,52.94,Exit_Sub_Main,0,2
+793,Typical School Chair and Table 16,53.15,Exit_Sub3,0,2
+682,Typical School Chair and Table 9,53.50,Exit_Sub_Main,0,2
+410,School Table,53.89,Exit_Sub_Main,0,2
+356,Typical School Chair and Table 5,54.10,Exit_Sub_Main,0,2
+789,Typical School Chair and Table 15,55.02,Exit_Sub1,0,2
+457,Typical School Chair and Table 11,56.44,Exit_Sub2,0,2
+220,School Table,56.88,Exit_Sub_Main,0,2
+273,Typical School Chair and Table 6,59.28,Exit_Sub3,0,2
+892,School Table,59.79,Exit_Sub3,0,2
+348,Typical School Chair and Table 8,59.89,Exit_Sub_Main,0,2
+159,School Table,60.03,Exit_Sub3,0,2
+480,pedestal,60.15,Exit_Sub_Main,0,2
+987,School Table,60.57,Exit_Sub_Main,0,2
+544,Typical School Chair and Table 9,60.78,Exit_Sub_Main,0,2
+826,Typical School Chair and Table 7,61.40,Exit_Sub2,0,2
+803,School Table,61.43,Exit_Sub_Main,0,2
+579,School Table,61.56,Exit_Sub3,0,2
+868,Typical School Chair and Table 13,61.67,Exit_Sub_Main,0,2
+924,School Table,61.95,Exit_Sub2,0,2
+726,Typical School Chair and Table 20,62.38,Exit_Sub_Main,0,2
+221,Typical School Chair and Table 19,62.46,Exit_Sub2,0,2
+66,School Table,63.06,Exit_Sub2,0,2
+485,School Table,64.70,Exit_Sub1,0,2
+911,School Table,65.04,Exit_Sub2,0,2
+311,School Table,65.62,Exit_Sub2,0,2
+44,Typical School Chair and Table,65.69,Exit_Sub1,0,2
+312,School Table,65.83,Exit_Sub3,0,2
+153,Typical School Chair and Table 10,65.91,Exit_Sub3,0,2
+201,Typical School Chair and Table,66.10,Exit_Sub1,0,2
+904,School Table,66.95,Exit_Sub_Main,0,2
+513,Typical School Chair and Table 14,67.08,Exit_Sub3,0,2
+26,Typical School Chair and Table 13,67.41,Exit_Sub_Main,0,2
+421,Typical School Chair and Table 11,67.74,Exit_Sub_Main,0,2
+805,Typical School Chair and Table 3,68.18,Exit_Sub1,0,2
+406,School Table,69.96,Exit_Sub3,0,2
+467,School Table,70.18,Exit_Sub2,0,2
+592,School Table,70.71,Exit_Sub_Main,0,2
+845,Typical School Chair and Table 1,71.13,Exit_Sub_Main,0,2
+477,School Table,71.62,Exit_Sub_Main,0,2
+128,Typical School Chair and Table 9,72.44,Exit_Sub_Main,0,2
+593,School Table,73.10,Exit_Sub2,0,2
+702,Typical School Chair and Table 6,73.73,Exit_Sub2,0,2
+652,School Table,73.94,Exit_Sub3,0,2
+267,Typical School Chair and Table 13,73.97,Exit_Sub3,0,2
+648,School Table,74.14,Exit_Sub2,0,2
+507,School Table,74.49,Exit_Sub3,0,2
+432,School Table,75.26,Exit_Sub3,0,2
+913,School Table,75.56,Exit_Sub2,0,2
+584,School Table,75.59,Exit_Sub2,0,2
+570,Typical School Chair and Table 11,76.02,Exit_Sub_Main,0,2
+542,pedestal,76.21,Exit_Sub3,0,2
+959,Typical School Chair and Table 5,76.30,Exit_Sub_Main,0,2
+599,School Table,76.41,Exit_Sub3,0,2
+350,Typical School Chair and Table 14,76.54,Exit_Sub_Main,0,2
+578,School Table,76.62,Exit_Sub3,0,2
+498,Typical School Chair and Table 15,76.74,Exit_Sub_Main,0,2
+728,pedestal,77.24,Exit_Sub2,0,2
+899,Typical School Chair and Table 13,77.45,Exit_Sub_Main,0,2
+867,Typical School Chair and Table 5,77.59,Exit_Sub_Main,0,2
+427,School Table,77.66,Exit_Sub1,0,2
+700,School Table,77.96,Exit_Sub_Main,0,2
+772,pedestal,78.08,Exit_Sub_Main,0,2
+560,Typical School Chair and Table 5,78.54,Exit_Sub_Main,0,2
+250,School Table,78.59,Exit_Sub_Main,0,2
+41,Typical School Chair and Table 9,79.72,Exit_Sub_Main,0,2
+912,Typical School Chair and Table 6,80.54,Exit_Sub3,0,2
+921,Typical School Chair and Table 17,80.67,Exit_Sub2,0,2
+968,School Table,80.95,Exit_Sub_Main,0,2
+455,Typical School Chair and Table 1,81.21,Exit_Sub2,0,2
+800,School Table,81.35,Exit_Sub_Main,0,2
+453,School Table,81.85,Exit_Sub2,0,2
+9,Typical School Chair and Table 19,82.49,Exit_Sub2,0,2
+194,Typical School Chair and Table 17,82.78,Exit_Sub_Main,0,2
+336,pedestal,83.40,Exit_Sub3,0,2
+172,School Table,83.59,Exit_Sub2,0,2
+771,Typical School Chair and Table 15,83.63,Exit_Sub2,0,2
+974,Typical School Chair and Table 10,84.13,Exit_Sub2,0,2
+512,Typical School Chair and Table 14,84.20,Exit_Sub_Main,0,2
+951,School Table,86.59,Exit_Sub3,0,2
+996,School Table,86.64,Exit_Sub2,0,2
+461,Typical School Chair and Table 18,86.74,Exit_Sub2,0,2
+611,pedestal,86.76,Exit_Sub1,0,2
+818,School Table,86.98,Exit_Sub3,0,2
+854,School Table,87.23,Exit_Sub2,0,2
+408,Typical School Chair and Table 5,87.43,Exit_Sub3,0,2
+203,Typical School Chair and Table 10,88.15,Exit_Sub2,0,2
+995,Typical School Chair and Table 19,88.41,Exit_Sub2,0,2
+626,Typical School Chair and Table 3,88.51,Exit_Sub2,0,2
+704,School Table,88.56,Exit_Sub_Main,0,2
+292,School Table,88.81,Exit_Sub1,0,2
+841,Typical School Chair and Table 20,89.45,Exit_Sub1,0,2
+639,School Table,90.69,Exit_Sub1,0,2
+140,Typical School Chair and Table 20,90.90,Exit_Sub_Main,0,2
+627,Typical School Chair and Table 14,91.10,Exit_Sub_Main,0,2
+240,School Table,91.50,Exit_Sub2,0,2
+235,Typical School Chair and Table 2,91.57,Exit_Sub2,0,2
+259,School Table,92.43,Exit_Sub_Main,0,2
+963,School Table,93.19,Exit_Sub_Main,0,2
+381,Typical School Chair and Table 6,93.39,Exit_Sub1,0,2
+991,Typical School Chair and Table 7,93.67,Exit_Sub2,0,2
+665,Typical School Chair and Table 13,94.00,Exit_Sub_Main,0,2
+494,Typical School Chair and Table 18,94.39,Exit_Sub2,0,2
+14,Typical School Chair and Table 1,94.80,Exit_Sub3,0,2
+808,School Table,95.28,Exit_Sub_Main,0,2
+176,School Table,95.57,Exit_Sub_Main,0,2
+297,School Table,96.30,Exit_Sub_Main,0,2
+605,Typical School Chair and Table 15,96.48,Exit_Sub_Main,0,2
+234,School Table,96.82,Exit_Sub_Main,0,2
+655,Typical School Chair and Table 3,97.41,Exit_Sub_Main,0,2
+11,Typical School Chair and Table 18,97.45,Exit_Sub3,0,2
+183,School Table,97.45,Exit_Sub3,0,2
+555,Typical School Chair and Table 14,97.83,Exit_Sub3,0,2
+843,Typical School Chair and Table,98.24,Exit_Sub_Main,0,2
+883,School Table,98.28,Exit_Sub_Main,0,2
+576,Typical School Chair and Table 2,98.40,Exit_Sub2,0,2
+927,School Table,98.40,Exit_Sub3,0,2
+618,School Table,98.69,Exit_Sub2,0,2
+596,School Table,99.17,Exit_Sub2,0,2
+197,Typical School Chair and Table 10,99.43,Exit_Sub2,0,2
+113,Typical School Chair and Table 13,99.87,Exit_Sub2,0,2
+915,School Table,100.42,Exit_Sub_Main,0,2
+813,School Table,100.89,Exit_Sub_Main,0,2
+758,School Table,101.98,Exit_Sub3,0,2
+346,Typical School Chair and Table 2,102.09,Exit_Sub2,0,2
+56,School Table,102.43,Exit_Sub_Main,0,2
+871,Typical School Chair and Table 2,102.75,Exit_Sub3,0,2
+588,School Table,102.80,Exit_Sub_Main,0,2
+495,Typical School Chair and Table 14,102.87,Exit_Sub2,0,2
+98,School Table,102.92,Exit_Sub_Main,0,2
+2,School Table,103.66,Exit_Sub2,0,2
+247,School Table,103.71,Exit_Sub2,0,2
+445,Typical School Chair and Table 15,103.80,Exit_Sub3,0,2
+131,School Table,104.15,Exit_Sub3,0,2
+936,Typical School Chair and Table 19,104.43,Exit_Sub_Main,0,2
+727,School Table,104.50,Exit_Sub3,0,2
+587,School Table,104.78,Exit_Sub3,0,2
+139,Typical School Chair and Table 16,105.00,Exit_Sub3,0,2
+137,School Table,105.63,Exit_Sub_Main,0,2
+364,Typical School Chair and Table 1,105.65,Exit_Sub1,0,2
+161,School Table,105.94,Exit_Sub_Main,0,2
+713,Typical School Chair and Table 16,106.23,Exit_Sub2,0,2
+171,Typical School Chair and Table 3,106.44,Exit_Sub3,0,2
+289,Typical School Chair and Table 4,106.66,Exit_Sub_Main,0,2
+85,School Table,107.05,Exit_Sub1,0,2
+980,School Table,107.11,Exit_Sub_Main,0,2
+690,pedestal,107.32,Exit_Sub_Main,0,2
+474,School Table,107.69,Exit_Sub3,0,2
+890,Typical School Chair and Table 11,108.03,Exit_Sub3,0,2
+325,School Table,108.11,Exit_Sub2,0,2
+120,School Table,108.24,Exit_Sub3,0,2
+149,School Table,108.92,Exit_Sub_Main,0,2
+767,Typical School Chair and Table 4,109.16,Exit_Sub_Main,0,2
+978,Typical School Chair and Table 10,109.38,Exit_Sub1,0,2
+953,School Table,109.56,Exit_Sub3,0,2
+319,School Table,109.64,Exit_Sub_Main,0,2
+531,School Table,109.73,Exit_Sub3,0,2
+562,School Table,109.99,Exit_Sub_Main,0,2
+791,Typical School Chair and Table 11,110.12,Exit_Sub_Main,0,2
+954,School Table,110.18,Exit_Sub_Main,0,2
+233,School Table,110.60,Exit_Sub3,0,2
+609,Typical School Chair and Table 20,110.84,Exit_Sub_Main,0,2
+763,School Table,110.91,Exit_Sub2,0,2
+32,School Table,110.97,Exit_Sub3,0,2
+384,Typical School Chair and Table 13,111.38,Exit_Sub3,0,2
+165,School Table,111.38,Exit_Sub_Main,0,2
+355,pedestal,112.21,Exit_Sub1,0,2
+466,School Table,112.93,Exit_Sub3,0,2
+478,Typical School Chair and Table 2,113.44,Exit_Sub2,0,2
+7,Typical School Chair and Table 4,113.61,Exit_Sub_Main,0,2
+965,Typical School Chair and Table,113.65,Exit_Sub_Main,0,2
+877,Typical School Chair and Table 6,114.13,Exit_Sub1,0,2
+556,School Table,114.86,Exit_Sub1,0,2
+881,Typical School Chair and Table 8,115.29,Exit_Sub_Main,0,2
+274,Typical School Chair and Table 19,115.36,Exit_Sub2,0,2
+938,Typical School Chair and Table,115.97,Exit_Sub_Main,0,2
+62,pedestal,116.41,Exit_Sub2,0,2
+736,Typical School Chair and Table 17,117.01,Exit_Sub_Main,0,2
+12,Typical School Chair and Table 6,117.07,Exit_Sub2,0,2
+630,School Table,117.41,Exit_Sub3,0,2
+810,School Table,117.81,Exit_Sub_Main,0,2
+777,Typical School Chair and Table 12,117.99,Exit_Sub_Main,0,2
+526,Typical School Chair and Table 15,118.35,Exit_Sub3,0,2
+307,School Table,118.49,Exit_Sub_Main,0,2
+395,Typical School Chair and Table 2,118.92,Exit_Sub3,0,2
+35,School Table,119.00,Exit_Sub_Main,0,2
+998,School Table,119.34,Exit_Sub3,0,2
+338,School Table,119.64,Exit_Sub3,0,2
+747,School Table,119.66,Exit_Sub1,0,2
+199,School Table,119.78,Exit_Sub2,0,2
+420,School Table,119.82,Exit_Sub3,0,2
+820,School Table,119.86,Exit_Sub3,0,2
+821,Typical School Chair and Table 1,119.91,Exit_Sub3,0,2
+94,School Table,120.06,Exit_Sub_Main,0,2
+622,Typical School Chair and Table 3,120.20,Exit_Sub1,0,2
+61,Typical School Chair and Table 5,120.44,Exit_Sub3,0,2
+225,Typical School Chair and Table 18,120.69,Exit_Sub3,0,2
+848,Typical School Chair and Table 5,120.89,Exit_Sub_Main,0,2
+500,Typical School Chair and Table 19,121.09,Exit_Sub_Main,0,2
+832,Typical School Chair and Table 10,123.00,Exit_Sub3,0,2
+58,Typical School Chair and Table 13,123.33,Exit_Sub2,0,2
+386,Typical School Chair and Table 4,123.73,Exit_Sub_Main,0,2
+751,School Table,124.22,Exit_Sub3,0,2
+102,Typical School Chair and Table 4,124.26,Exit_Sub3,0,2
+449,Typical School Chair and Table,124.54,Exit_Sub3,0,2
+774,School Table,124.83,Exit_Sub1,0,2
+305,Typical School Chair and Table 19,125.30,Exit_Sub2,0,2
+268,Typical School Chair and Table 19,126.22,Exit_Sub_Main,0,2
+669,School Table,126.27,Exit_Sub2,0,2
+802,School Table,126.28,Exit_Sub3,0,2
+266,School Table,126.38,Exit_Sub1,0,2
+528,School Table,126.69,Exit_Sub2,0,2
+683,pedestal,126.69,Exit_Sub2,0,2
+304,Typical School Chair and Table 9,126.76,Exit_Sub_Main,0,2
+866,Typical School Chair and Table 17,126.96,Exit_Sub_Main,0,2
+766,Typical School Chair and Table 8,127.10,Exit_Sub2,0,2
+249,School Table,127.33,Exit_Sub_Main,0,2
+244,School Table,127.64,Exit_Sub_Main,0,2
+525,School Table,127.72,Exit_Sub_Main,0,2
+479,Typical School Chair and Table 1,128.10,Exit_Sub3,0,2
+780,Typical School Chair and Table 17,128.54,Exit_Sub_Main,0,2
+873,Typical School Chair and Table 13,128.61,Exit_Sub_Main,0,2
+710,School Table,128.69,Exit_Sub3,0,2
+708,Typical School Chair and Table 9,128.93,Exit_Sub2,0,2
+279,School Table,129.09,Exit_Sub_Main,0,2
+932,Typical School Chair and Table 5,129.16,Exit_Sub2,0,2
+393,School Table,129.30,Exit_Sub3,0,2
+603,School Table,129.30,Exit_Sub2,0,2
+589,pedestal,129.72,Exit_Sub2,0,2
+443,School Table,129.92,Exit_Sub_Main,0,2
+722,School Table,129.99,Exit_Sub_Main,0,2
+263,Typical School Chair and Table 6,130.45,Exit_Sub2,0,2
+189,Typical School Chair and Table 4,130.46,Exit_Sub3,0,2
+838,Typical School Chair and Table 18,130.59,Exit_Sub_Main,0,2
+781,School Table,130.75,Exit_Sub3,0,2
+741,School Table,130.89,Exit_Sub2,0,2
+481,School Table,131.00,Exit_Sub2,0,2
+99,Typical School Chair and Table 20,131.55,Exit_Sub1,0,2
+343,Typical School Chair and Table 12,131.57,Exit_Sub2,0,2
+773,School Table,131.63,Exit_Sub_Main,0,2
+670,Typical School Chair and Table 1,131.64,Exit_Sub_Main,0,2
+878,School Table,131.66,Exit_Sub2,0,2
+452,Typical School Chair and Table 17,131.87,Exit_Sub_Main,0,2
+856,Typical School Chair and Table 1,131.95,Exit_Sub3,0,2
+303,School Table,132.04,Exit_Sub2,0,2
+806,Typical School Chair and Table 2,132.42,Exit_Sub_Main,0,2
+169,Typical School Chair and Table 3,132.61,Exit_Sub2,0,2
+237,Typical School Chair and Table 10,132.68,Exit_Sub_Main,0,2
+491,School Table,132.84,Exit_Sub2,0,2
+488,School Table,133.06,Exit_Sub_Main,0,2
+87,Typical School Chair and Table 5,133.25,Exit_Sub_Main,0,2
+462,Typical School Chair and Table 10,133.64,Exit_Sub3,0,2
+788,School Table,133.71,Exit_Sub_Main,0,2
+674,School Table,134.14,Exit_Sub1,0,2
+920,School Table,134.96,Exit_Sub_Main,0,2
+492,School Table,135.69,Exit_Sub_Main,0,2
+524,Typical School Chair and Table 4,136.00,Exit_Sub_Main,0,2
+231,Typical School Chair and Table,136.10,Exit_Sub1,0,2
+252,School Table,136.79,Exit_Sub3,0,2
+385,School Table,137.01,Exit_Sub1,0,2
+762,School Table,137.01,Exit_Sub_Main,0,2
+649,School Table,137.35,Exit_Sub_Main,0,2
+850,Typical School Chair and Table 10,137.43,Exit_Sub2,0,2
+291,Typical School Chair and Table 1,137.85,Exit_Sub_Main,0,2
+586,School Table,138.16,Exit_Sub1,0,2
+282,School Table,139.70,Exit_Sub_Main,0,2
+840,Typical School Chair and Table 13,140.23,Exit_Sub3,0,2
+801,Typical School Chair and Table,140.65,Exit_Sub_Main,0,2
+278,Typical School Chair and Table 18,140.68,Exit_Sub2,0,2
+309,Typical School Chair and Table 11,140.72,Exit_Sub_Main,0,2
+876,School Table,140.76,Exit_Sub3,0,2
+20,Typical School Chair and Table 11,140.92,Exit_Sub3,0,2
+372,Typical School Chair and Table 12,141.44,Exit_Sub_Main,0,2
+790,Typical School Chair and Table 3,141.87,Exit_Sub_Main,0,2
+329,School Table,141.87,Exit_Sub2,0,2
+643,Typical School Chair and Table 20,142.77,Exit_Sub_Main,0,2
+865,School Table,142.96,Exit_Sub2,0,2
+620,Typical School Chair and Table 16,143.39,Exit_Sub2,0,2
+520,pedestal,143.82,Exit_Sub3,0,2
+958,Typical School Chair and Table 7,143.82,Exit_Sub2,0,2
+37,Typical School Chair and Table 13,143.94,Exit_Sub_Main,0,2
+118,Typical School Chair and Table 11,144.10,Exit_Sub_Main,0,2
+34,School Table,144.10,Exit_Sub2,0,2
+380,School Table,144.43,Exit_Sub2,0,2
+463,School Table,144.85,Exit_Sub1,0,2
+173,Typical School Chair and Table 14,144.89,Exit_Sub_Main,0,2
+317,Group 5639,145.39,Exit_Sub3,0,2
+607,Typical School Chair and Table 14,145.74,Exit_Sub3,0,2
+133,School Table,146.10,Exit_Sub3,0,2
+50,School Table,146.32,Exit_Sub2,0,2
+30,Typical School Chair and Table 6,146.50,Exit_Sub3,0,2
+242,Typical School Chair and Table 20,147.60,Exit_Sub3,0,2
+399,School Table,147.73,Exit_Sub1,0,2
+999,Typical School Chair and Table 4,147.74,Exit_Sub3,0,2
+101,Typical School Chair and Table 10,147.83,Exit_Sub_Main,0,2
+473,Typical School Chair and Table 17,148.00,Exit_Sub3,0,2
+439,School Table,148.32,Exit_Sub_Main,0,2
+166,Typical School Chair and Table 16,148.50,Exit_Sub2,0,2
+277,Typical School Chair and Table 6,148.56,Exit_Sub2,0,2
+829,Typical School Chair and Table 4,148.61,Exit_Sub_Main,0,2
+332,Typical School Chair and Table,148.62,Exit_Sub_Main,0,2
+885,Typical School Chair and Table 14,148.74,Exit_Sub3,0,2
+511,School Table,149.21,Exit_Sub2,0,2
+208,School Table,149.23,Exit_Sub1,0,2
+212,School Table,149.31,Exit_Sub3,0,2
+366,Typical School Chair and Table 18,149.39,Exit_Sub_Main,0,2
+786,School Table,149.83,Exit_Sub3,0,2
+376,School Table,149.92,Exit_Sub3,0,2
+823,Typical School Chair and Table 9,150.24,Exit_Sub_Main,0,2
+95,Typical School Chair and Table 6,150.61,Exit_Sub2,0,2
+213,School Table,150.61,Exit_Sub2,0,2
+396,School Table,150.69,Exit_Sub1,0,2
+650,Typical School Chair and Table 2,151.06,Exit_Sub_Main,0,2
+547,School Table,151.33,Exit_Sub_Main,0,2
+608,Typical School Chair and Table 4,151.43,Exit_Sub_Main,0,2
+179,School Table,151.43,Exit_Sub_Main,0,2
+814,Typical School Chair and Table 19,151.61,Exit_Sub3,0,2
+671,School Table,152.05,Exit_Sub1,0,2
+917,School Table,152.05,Exit_Sub_Main,0,2
+822,Typical School Chair and Table 9,152.36,Exit_Sub3,0,2
+448,School Table,152.54,Exit_Sub3,0,2
+677,School Table,152.66,Exit_Sub3,0,2
+136,Typical School Chair and Table 10,152.91,Exit_Sub1,0,2
+398,Typical School Chair and Table 2,153.04,Exit_Sub2,0,2
+785,School Table,153.29,Exit_Sub2,0,2
+551,School Table,153.35,Exit_Sub3,0,2
+770,School Table,153.38,Exit_Sub2,0,2
+18,Typical School Chair and Table 14,153.52,Exit_Sub3,0,2
+412,Typical School Chair and Table,153.77,Exit_Sub_Main,0,2
+692,School Table,154.14,Exit_Sub_Main,0,2
+402,Typical School Chair and Table 16,154.32,Exit_Sub1,0,2
+807,Typical School Chair and Table 9,154.32,Exit_Sub_Main,0,2
+947,School Table,154.33,Exit_Sub3,0,2
+928,School Table,154.52,Exit_Sub1,0,2
+675,Typical School Chair and Table 7,154.94,Exit_Sub1,0,2
+464,Typical School Chair and Table 14,154.99,Exit_Sub2,0,2
+460,School Table,155.16,Exit_Sub_Main,0,2
+217,School Table,155.75,Exit_Sub2,0,2
+238,pedestal,155.76,Exit_Sub2,0,2
+694,pedestal,155.96,Exit_Sub2,0,2
+842,Typical School Chair and Table 16,156.04,Exit_Sub2,0,2
+73,Typical School Chair and Table 7,156.17,Exit_Sub2,0,2
+988,School Table,156.17,Exit_Sub1,0,2
+977,Typical School Chair and Table 20,156.25,Exit_Sub_Main,0,2
+971,School Table,156.99,Exit_Sub3,0,2
+930,School Table,157.58,Exit_Sub3,0,2
+114,Group 8714,157.67,Exit_Sub_Main,0,2
+6,Typical School Chair and Table 6,158.85,Exit_Sub2,0,2
+74,Typical School Chair and Table 5,158.95,Exit_Sub3,0,2
+746,School Table,159.13,Exit_Sub_Main,0,2
+567,pedestal,160.35,Exit_Sub_Main,0,2
+797,Typical School Chair and Table 4,160.50,Exit_Sub_Main,0,2
+415,School Table,161.30,Exit_Sub3,0,2
+13,Typical School Chair and Table 8,161.95,Exit_Sub3,0,2
+914,pedestal,163.16,Exit_Sub1,0,2
+434,School Table,163.44,Exit_Sub_Main,0,2
+952,School Table,164.00,Exit_Sub3,0,2
+40,Typical School Chair and Table 3,164.18,Exit_Sub_Main,0,2
+901,School Table,164.46,Exit_Sub_Main,0,2
+632,Typical School Chair and Table 5,164.62,Exit_Sub_Main,0,2
+962,School Table,164.66,Exit_Sub3,0,2
+886,Typical School Chair and Table 19,164.79,Exit_Sub3,0,2
+644,School Table,164.83,Exit_Sub1,0,2
+761,School Table,165.25,Exit_Sub_Main,0,2
+438,School Table,165.28,Exit_Sub3,0,2
+733,Typical School Chair and Table 4,165.50,Exit_Sub2,0,2
+446,School Table,166.15,Exit_Sub3,0,2
+465,School Table,166.73,Exit_Sub3,0,2
+613,pedestal,166.89,Exit_Sub3,0,2
+721,Typical School Chair and Table 8,166.92,Exit_Sub3,0,2
+537,School Table,166.93,Exit_Sub_Main,0,2
+979,Typical School Chair and Table 17,167.05,Exit_Sub_Main,0,2
+872,Typical School Chair and Table 2,167.30,Exit_Sub3,0,2
+143,School Table,167.34,Exit_Sub_Main,0,2
+19,pedestal,167.45,Exit_Sub_Main,0,2
+717,School Table,167.55,Exit_Sub2,0,2
+942,School Table,167.68,Exit_Sub3,0,2
+663,Typical School Chair and Table 8,167.93,Exit_Sub_Main,0,2
+574,School Table,167.97,Exit_Sub3,0,2
+33,Typical School Chair and Table 12,168.08,Exit_Sub2,0,2
+363,School Table,168.14,Exit_Sub_Main,0,2
+686,Typical School Chair and Table 14,168.35,Exit_Sub3,0,2
+898,Typical School Chair and Table 17,168.35,Exit_Sub3,0,2
+600,School Table,168.66,Exit_Sub3,0,2
+538,School Table,169.28,Exit_Sub_Main,0,2
+483,School Table,169.36,Exit_Sub3,0,2
+261,Typical School Chair and Table 12,169.60,Exit_Sub_Main,0,2
+78,Typical School Chair and Table 9,169.75,Exit_Sub3,0,2
+724,Typical School Chair and Table 11,169.99,Exit_Sub3,0,2
+369,Typical School Chair and Table 11,170.05,Exit_Sub_Main,0,2
+902,pedestal,170.19,Exit_Sub2,0,2
+857,School Table,170.40,Exit_Sub2,0,2
+732,Typical School Chair and Table,170.61,Exit_Sub_Main,0,2
+943,School Table,170.68,Exit_Sub3,0,2
+552,Typical School Chair and Table 17,170.73,Exit_Sub2,0,2
+835,Typical School Chair and Table 15,170.89,Exit_Sub2,0,2
+894,School Table,170.98,Exit_Sub2,0,2
+907,School Table,171.35,Exit_Sub_Main,0,2
+986,Typical School Chair and Table 7,171.36,Exit_Sub3,0,2
+405,Typical School Chair and Table 5,171.57,Exit_Sub_Main,0,2
+896,School Table,171.91,Exit_Sub2,0,2
+232,Typical School Chair and Table 20,172.00,Exit_Sub2,0,2
+403,School Table,172.03,Exit_Sub_Main,0,2
+657,Typical School Chair and Table 3,172.88,Exit_Sub2,0,2
+824,School Table,172.99,Exit_Sub2,0,2
+672,Typical School Chair and Table 9,173.06,Exit_Sub3,0,2
+957,Typical School Chair and Table 20,173.06,Exit_Sub1,0,2
+617,Typical School Chair and Table 4,173.37,Exit_Sub_Main,0,2
+374,School Table,173.46,Exit_Sub3,0,2
+590,School Table,173.81,Exit_Sub2,0,2
+501,Typical School Chair and Table,173.94,Exit_Sub3,0,2
+969,School Table,174.70,Exit_Sub3,0,2
+315,School Table,175.13,Exit_Sub2,0,2
+472,Typical School Chair and Table 16,175.32,Exit_Sub2,0,2
+499,Typical School Chair and Table 10,175.35,Exit_Sub3,0,2
+621,Typical School Chair and Table 10,175.52,Exit_Sub2,0,2
+572,School Table,175.94,Exit_Sub3,0,2
+123,Typical School Chair and Table 5,176.01,Exit_Sub_Main,0,2
+138,Typical School Chair and Table 19,176.54,Exit_Sub2,0,2
+909,Typical School Chair and Table 15,176.55,Exit_Sub_Main,0,2
+964,Typical School Chair and Table 10,176.69,Exit_Sub3,0,2
+646,School Table,176.69,Exit_Sub_Main,0,2
+450,School Table,176.76,Exit_Sub2,0,2
+667,Typical School Chair and Table 9,176.97,Exit_Sub3,0,2
+662,School Table,177.57,Exit_Sub3,0,2
+750,Typical School Chair and Table,178.41,Exit_Sub1,0,2
+581,School Table,178.43,Exit_Sub_Main,0,2
+855,Typical School Chair and Table 18,178.82,Exit_Sub2,0,2
+595,School Table,179.44,Exit_Sub3,0,2
+482,Typical School Chair and Table 15,180.24,Exit_Sub3,0,2
+228,School Table,181.10,Exit_Sub2,0,2
+209,Typical School Chair and Table 12,181.10,Exit_Sub3,0,2
+275,School Table,181.43,Exit_Sub3,0,2
+379,Typical School Chair and Table 8,181.90,Exit_Sub2,0,2
+53,Typical School Chair and Table 14,182.06,Exit_Sub_Main,0,2
+75,Typical School Chair and Table 6,182.15,Exit_Sub_Main,0,2
+345,School Table,182.34,Exit_Sub1,0,2
+882,School Table,182.43,Exit_Sub3,0,2
+314,Typical School Chair and Table 5,182.54,Exit_Sub_Main,0,2
+893,School Table,182.73,Exit_Sub1,0,2
+204,Typical School Chair and Table 3,182.75,Exit_Sub3,0,2
+68,Typical School Chair and Table 9,182.84,Exit_Sub3,0,2
+157,School Table,183.15,Exit_Sub_Main,0,2
+352,School Table,183.17,Exit_Sub2,0,2
+428,Typical School Chair and Table 8,183.37,Exit_Sub2,0,2
+571,School Table,183.55,Exit_Sub_Main,0,2
+426,Typical School Chair and Table 11,183.57,Exit_Sub_Main,0,2
+676,Typical School Chair and Table 17,183.65,Exit_Sub3,0,2
+830,School Table,183.75,Exit_Sub3,0,2
+90,Typical School Chair and Table 5,183.75,Exit_Sub3,0,2
+391,School Table,183.94,Exit_Sub_Main,0,2
+972,School Table,183.95,Exit_Sub2,0,2
+360,School Table,184.11,Exit_Sub_Main,0,2
+849,Typical School Chair and Table 10,184.32,Exit_Sub_Main,0,2
+851,School Table,184.36,Exit_Sub2,0,2
+641,School Table,184.45,Exit_Sub3,0,2
+719,School Table,184.64,Exit_Sub3,0,2
+839,Typical School Chair and Table 6,184.77,Exit_Sub_Main,0,2
+417,Typical School Chair and Table 2,184.87,Exit_Sub2,0,2
+509,Typical School Chair and Table 12,184.94,Exit_Sub_Main,0,2
+470,Typical School Chair and Table 5,185.23,Exit_Sub_Main,0,2
+422,Typical School Chair and Table 1,185.31,Exit_Sub3,0,2
+300,School Table,185.43,Exit_Sub3,0,2
+394,Typical School Chair and Table 17,185.46,Exit_Sub2,0,2
+400,Typical School Chair and Table 3,185.64,Exit_Sub2,0,2
+931,Typical School Chair and Table 9,185.76,Exit_Sub_Main,0,2
+362,School Table,185.81,Exit_Sub3,0,2
+566,School Table,186.22,Exit_Sub_Main,0,2
+185,Typical School Chair and Table 2,186.85,Exit_Sub3,0,2
+992,Typical School Chair and Table 7,186.92,Exit_Sub_Main,0,2
+916,Typical School Chair and Table 2,187.25,Exit_Sub1,0,2
+333,School Table,187.29,Exit_Sub2,0,2
+103,Typical School Chair and Table,187.49,Exit_Sub_Main,0,2
+152,Typical School Chair and Table 18,187.54,Exit_Sub3,0,2
+344,School Table,187.86,Exit_Sub1,0,2
+223,School Table,188.14,Exit_Sub3,0,2
+795,School Table,188.28,Exit_Sub3,0,2
+580,School Table,188.48,Exit_Sub1,0,2
+109,School Table,188.92,Exit_Sub_Main,0,2
+549,School Table,188.95,Exit_Sub3,0,2
+429,School Table,188.95,Exit_Sub_Main,0,2
+707,Typical School Chair and Table,189.10,Exit_Sub1,0,2
+778,Typical School Chair and Table 15,189.18,Exit_Sub_Main,0,2
+81,Typical School Chair and Table 2,189.21,Exit_Sub3,0,2
+768,School Table,189.92,Exit_Sub_Main,0,2
+715,Typical School Chair and Table 5,190.12,Exit_Sub_Main,0,2
+52,School Table,190.19,Exit_Sub3,0,2
+287,School Table,190.37,Exit_Sub2,0,2
+224,School Table,190.45,Exit_Sub3,0,2
+29,Typical School Chair and Table 8,190.51,Exit_Sub_Main,0,2
+749,Typical School Chair and Table 8,190.52,Exit_Sub2,0,2
+256,School Table,190.62,Exit_Sub_Main,0,2
+658,Typical School Chair and Table 7,190.70,Exit_Sub2,0,2
+383,School Table,190.92,Exit_Sub3,0,2
+918,Typical School Chair and Table 14,190.94,Exit_Sub_Main,0,2
+132,School Table,191.28,Exit_Sub_Main,0,2
+756,Typical School Chair and Table 10,191.36,Exit_Sub2,0,2
+796,School Table,191.39,Exit_Sub_Main,0,2
+193,School Table,191.53,Exit_Sub2,0,2
+210,Typical School Chair and Table 15,192.02,Exit_Sub2,0,2
+975,School Table,192.59,Exit_Sub_Main,0,2
+93,Typical School Chair and Table 9,192.63,Exit_Sub_Main,0,2
+983,School Table,192.83,Exit_Sub3,0,2
+200,Typical School Chair and Table 14,192.85,Exit_Sub3,0,2
+651,School Table,192.86,Exit_Sub3,0,2
+294,School Table,193.06,Exit_Sub_Main,0,2
+262,Typical School Chair and Table,193.48,Exit_Sub3,0,2
+100,School Table,194.08,Exit_Sub_Main,0,2
+163,School Table,194.25,Exit_Sub3,0,2
+433,School Table,194.25,Exit_Sub2,0,2
+706,Typical School Chair and Table 16,194.42,Exit_Sub1,0,2
+745,School Table,194.47,Exit_Sub_Main,0,2
+945,School Table,194.54,Exit_Sub_Main,0,2
+619,School Table,194.69,Exit_Sub_Main,0,2
+276,School Table,194.95,Exit_Sub_Main,0,2
+698,School Table,195.06,Exit_Sub3,0,2
+27,School Table,195.22,Exit_Sub2,0,2
+280,Typical School Chair and Table 4,195.34,Exit_Sub_Main,0,2
+585,School Table,195.65,Exit_Sub_Main,0,2
+327,Typical School Chair and Table 8,195.71,Exit_Sub3,0,2
+625,School Table,195.89,Exit_Sub_Main,0,2
+874,School Table,195.99,Exit_Sub3,0,2
+390,Typical School Chair and Table 11,196.13,Exit_Sub2,0,2
+15,Typical School Chair and Table 5,196.46,Exit_Sub_Main,0,2
+25,School Table,196.48,Exit_Sub_Main,0,2
+72,School Table,196.99,Exit_Sub3,0,2
+994,School Table,197.51,Exit_Sub_Main,0,2
+559,Typical School Chair and Table 18,197.53,Exit_Sub3,0,2
+281,School Table,197.80,Exit_Sub_Main,0,2
+148,School Table,198.12,Exit_Sub3,0,2
+554,Typical School Chair and Table 18,198.30,Exit_Sub2,0,2
+990,Typical School Chair and Table 8,198.55,Exit_Sub2,0,2
+413,Typical School Chair and Table 18,198.92,Exit_Sub_Main,0,2
+737,Typical School Chair and Table 17,198.92,Exit_Sub_Main,0,2
+418,Typical School Chair and Table 16,199.01,Exit_Sub2,0,2
+416,Typical School Chair and Table,199.14,Exit_Sub3,0,2
+17,Typical School Chair and Table 1,199.34,Exit_Sub3,0,2
+783,School Table,199.39,Exit_Sub2,0,2
+516,Typical School Chair and Table 20,199.46,Exit_Sub_Main,0,2
+811,Typical School Chair and Table 19,199.81,Exit_Sub3,0,2
+117,Typical School Chair and Table 17,199.96,Exit_Sub_Main,0,2
+709,Typical School Chair and Table 11,200.02,Exit_Sub3,0,2
+288,School Table,200.04,Exit_Sub2,0,2
+973,Typical School Chair and Table 3,200.21,Exit_Sub2,0,2
+765,School Table,200.62,Exit_Sub1,0,2
+239,School Table,200.65,Exit_Sub2,0,2
+71,Typical School Chair and Table 12,200.69,Exit_Sub_Main,0,2
+146,Typical School Chair and Table 17,200.87,Exit_Sub_Main,0,2
+725,School Table,200.89,Exit_Sub3,0,2
+167,Typical School Chair and Table 5,201.04,Exit_Sub3,0,2
+359,School Table,201.28,Exit_Sub3,0,2
+187,School Table,201.59,Exit_Sub_Main,0,2
+296,Typical School Chair and Table 11,201.64,Exit_Sub_Main,0,2
+142,School Table,201.67,Exit_Sub3,0,2
+638,School Table,201.71,Exit_Sub_Main,0,2
+484,School Table,201.81,Exit_Sub_Main,0,2
+222,Typical School Chair and Table 9,201.82,Exit_Sub_Main,0,2
+546,Typical School Chair and Table 11,202.24,Exit_Sub_Main,0,2
+825,School Table,202.38,Exit_Sub3,0,2
+371,School Table,202.50,Exit_Sub3,0,2
+121,Typical School Chair and Table 20,202.63,Exit_Sub2,0,2
+230,Typical School Chair and Table 20,203.05,Exit_Sub3,0,2
+504,School Table,203.45,Exit_Sub1,0,2
+577,School Table,203.51,Exit_Sub_Main,0,2
+180,Typical School Chair and Table 15,203.73,Exit_Sub1,0,2
+80,School Table,204.52,Exit_Sub2,0,2
+636,Typical School Chair and Table 15,205.00,Exit_Sub3,0,2
+716,Typical School Chair and Table 9,205.00,Exit_Sub2,0,2
+517,Typical School Chair and Table 14,205.45,Exit_Sub_Main,0,2
+316,School Table,205.47,Exit_Sub2,0,2
+361,Typical School Chair and Table 15,205.57,Exit_Sub3,0,2
+812,water tank 1,205.97,Exit_Sub2,0,2
+553,School Table,206.14,Exit_Sub_Main,0,2
+610,School Table,206.34,Exit_Sub2,0,2
+712,Typical School Chair and Table 10,206.74,Exit_Sub2,0,2
+257,School Table,206.74,Exit_Sub_Main,0,2
+370,School Table,207.02,Exit_Sub_Main,0,2
+597,Typical School Chair and Table 16,207.14,Exit_Sub3,0,2
+616,Typical School Chair and Table 1,207.30,Exit_Sub3,0,2
+107,School Table,207.34,Exit_Sub_Main,0,2
+711,Typical School Chair and Table 7,207.41,Exit_Sub2,0,2
+284,School Table,207.57,Exit_Sub3,0,2
+532,Typical School Chair and Table 18,208.02,Exit_Sub1,0,2
+660,School Table,208.15,Exit_Sub_Main,0,2
+684,School Table,208.22,Exit_Sub_Main,0,2
+175,Typical School Chair and Table 15,208.34,Exit_Sub_Main,0,2
+853,Typical School Chair and Table 12,208.77,Exit_Sub_Main,0,2
+286,Typical School Chair and Table 13,209.01,Exit_Sub_Main,0,2
+993,Typical School Chair and Table 15,209.05,Exit_Sub_Main,0,2
+216,School Table,209.06,Exit_Sub2,0,2
+563,School Table,209.47,Exit_Sub1,0,2
+879,Typical School Chair and Table 12,209.49,Exit_Sub_Main,0,2
+515,Typical School Chair and Table 8,209.64,Exit_Sub3,0,2
+656,Typical School Chair and Table 7,209.86,Exit_Sub_Main,0,2
+387,School Table,209.86,Exit_Sub3,0,2
+505,School Table,210.21,Exit_Sub_Main,0,2
+759,School Table,210.47,Exit_Sub3,0,2
+471,Typical School Chair and Table 11,210.66,Exit_Sub3,0,2
+55,School Table,210.76,Exit_Sub_Main,0,2
+661,School Table,210.88,Exit_Sub1,0,2
+591,Typical School Chair and Table 7,211.10,Exit_Sub_Main,0,2
+324,Typical School Chair and Table 13,211.60,Exit_Sub2,0,2
+468,Typical School Chair and Table 17,211.90,Exit_Sub_Main,0,2
+397,Typical School Chair and Table,212.04,Exit_Sub2,0,2
+251,School Table,212.06,Exit_Sub_Main,0,2
+444,Typical School Chair and Table 13,212.08,Exit_Sub_Main,0,2
+550,School Table,212.93,Exit_Sub_Main,0,2
+437,Typical School Chair and Table 19,213.79,Exit_Sub2,0,2
+283,School Table,213.87,Exit_Sub_Main,0,2
+106,School Table,214.13,Exit_Sub_Main,0,2
+933,School Table,214.48,Exit_Sub_Main,0,2
+365,Typical School Chair and Table 20,214.77,Exit_Sub_Main,0,2
+375,School Table,214.88,Exit_Sub_Main,0,2
+523,School Table,215.38,Exit_Sub3,0,2
+582,Typical School Chair and Table 12,216.00,Exit_Sub3,0,2
+731,Typical School Chair and Table 1,216.14,Exit_Sub2,0,2
+668,Typical School Chair and Table 1,216.32,Exit_Sub_Main,0,2
+506,Typical School Chair and Table 4,216.40,Exit_Sub2,0,2
+302,School Table,216.75,Exit_Sub2,0,2
+729,Typical School Chair and Table 12,216.96,Exit_Sub_Main,0,2
+265,Typical School Chair and Table 14,217.12,Exit_Sub_Main,0,2
+168,School Table,217.69,Exit_Sub_Main,0,2
+564,Typical School Chair and Table 9,217.71,Exit_Sub_Main,0,2
+245,Typical School Chair and Table 19,218.44,Exit_Sub2,0,2
+10,School Table,218.93,Exit_Sub2,0,2
+46,School Table,219.21,Exit_Sub1,0,2
+105,Typical School Chair and Table 2,219.26,Exit_Sub2,0,2
+272,Typical School Chair and Table 15,219.42,Exit_Sub2,0,2
+154,Typical School Chair and Table 7,219.74,Exit_Sub3,0,2
+65,School Table,219.84,Exit_Sub_Main,0,2
+949,Typical School Chair and Table 3,220.09,Exit_Sub2,0,2
+368,Typical School Chair and Table 20,220.23,Exit_Sub3,0,2
+503,Typical School Chair and Table 19,220.29,Exit_Sub2,0,2
+950,School Table,220.58,Exit_Sub3,0,2
+378,Typical School Chair and Table 13,220.58,Exit_Sub_Main,0,2
+459,Typical School Chair and Table 6,220.65,Exit_Sub2,0,2
+687,Typical School Chair and Table 3,220.65,Exit_Sub_Main,0,2
+794,School Table,220.70,Exit_Sub_Main,0,2
+828,School Table,220.73,Exit_Sub_Main,0,2
+184,School Table,221.11,Exit_Sub_Main,0,2
+178,Typical School Chair and Table 13,221.17,Exit_Sub_Main,0,2
+752,Typical School Chair and Table 20,221.22,Exit_Sub_Main,0,2
+887,School Table,221.32,Exit_Sub_Main,0,2
+748,Typical School Chair and Table 1,221.33,Exit_Sub_Main,0,2
+984,Typical School Chair and Table 12,221.51,Exit_Sub3,0,2
+89,School Table,221.73,Exit_Sub_Main,0,2
+934,School Table,221.73,Exit_Sub2,0,2
+1000,School Table,221.88,Exit_Sub_Main,0,2
+60,School Table,221.90,Exit_Sub2,0,2
+196,Typical School Chair and Table,221.94,Exit_Sub3,0,2
+122,Typical School Chair and Table 10,221.96,Exit_Sub_Main,0,2
+612,School Table,222.30,Exit_Sub3,0,2
+330,Typical School Chair and Table 8,222.34,Exit_Sub_Main,0,2
+320,water tank,222.52,Exit_Sub2,0,2
+529,School Table,222.64,Exit_Sub3,0,2
+664,Typical School Chair and Table 6,222.75,Exit_Sub_Main,0,2
+164,Typical School Chair and Table 20,222.92,Exit_Sub_Main,0,2
+543,Typical School Chair and Table 17,223.89,Exit_Sub_Main,0,2
+147,School Table,224.61,Exit_Sub_Main,0,2
+602,Typical School Chair and Table 16,224.89,Exit_Sub2,0,2
+691,Typical School Chair and Table 3,225.62,Exit_Sub3,0,2
+514,School Table,225.82,Exit_Sub3,0,2
+633,Typical School Chair and Table 8,225.93,Exit_Sub_Main,0,2
+285,Typical School Chair and Table 15,226.20,Exit_Sub2,0,2
+847,Typical School Chair and Table 13,226.35,Exit_Sub3,0,2
+192,School Table,226.80,Exit_Sub_Main,0,2
+744,Typical School Chair and Table 4,227.06,Exit_Sub_Main,0,2
+755,School Table,227.40,Exit_Sub2,0,2
+160,School Table,228.01,Exit_Sub2,0,2
+436,Typical School Chair and Table 6,228.23,Exit_Sub3,0,2
+837,School Table,228.57,Exit_Sub_Main,0,2
+431,School Table,228.63,Exit_Sub_Main,0,2
+859,Typical School Chair and Table 12,228.88,Exit_Sub_Main,0,2
+833,School Table,229.11,Exit_Sub3,0,2
+573,Typical School Chair and Table 10,229.12,Exit_Sub2,0,2
+3,School Table,229.17,Exit_Sub_Main,0,2
+487,School Table,229.20,Exit_Sub_Main,0,2
+298,School Table,229.42,Exit_Sub2,0,2
+944,Typical School Chair and Table 6,229.50,Exit_Sub2,0,2
+77,Typical School Chair and Table 18,229.64,Exit_Sub3,0,2
+816,School Table,229.90,Exit_Sub1,0,2
+155,School Table,230.33,Exit_Sub3,0,2
+705,Typical School Chair and Table 1,230.45,Exit_Sub2,0,2
+5,Typical School Chair and Table 7,230.61,Exit_Sub_Main,0,2
+568,Typical School Chair and Table 16,230.84,Exit_Sub3,0,2
+388,School Table,231.07,Exit_Sub2,0,2
+270,Typical School Chair and Table 8,231.25,Exit_Sub3,0,2
+922,Typical School Chair and Table 16,231.37,Exit_Sub_Main,0,2
+982,Typical School Chair and Table 3,231.55,Exit_Sub3,0,2
+923,Typical School Chair and Table 15,231.67,Exit_Sub2,0,2
+720,Typical School Chair and Table 8,231.81,Exit_Sub3,0,2
+941,School Table,232.29,Exit_Sub2,0,2
+295,Typical School Chair and Table 19,232.36,Exit_Sub3,0,2
+782,School Table,233.22,Exit_Sub3,0,2
+145,Typical School Chair and Table 19,233.30,Exit_Sub2,0,2
+522,School Table,233.72,Exit_Sub_Main,0,2
+634,School Table,233.90,Exit_Sub3,0,2
+804,School Table,234.51,Exit_Sub_Main,0,2
+929,Typical School Chair and Table 10,234.62,Exit_Sub1,0,2
+891,Typical School Chair and Table 11,234.77,Exit_Sub2,0,2
+647,School Table,234.85,Exit_Sub3,0,2
+119,Typical School Chair and Table 17,235.15,Exit_Sub3,0,2
+688,School Table,235.30,Exit_Sub_Main,0,2
+730,School Table,235.44,Exit_Sub_Main,0,2
+836,Typical School Chair and Table 4,235.64,Exit_Sub_Main,0,2
+970,School Table,235.88,Exit_Sub3,0,2
+565,School Table,236.19,Exit_Sub_Main,0,2
+535,Typical School Chair and Table 16,236.45,Exit_Sub_Main,0,2
+784,School Table,236.46,Exit_Sub3,0,2
+486,Typical School Chair and Table 2,236.66,Exit_Sub_Main,0,2
+205,School Table,236.68,Exit_Sub3,0,2
+681,School Table,236.71,Exit_Sub_Main,0,2
+935,School Table,236.74,Exit_Sub_Main,0,2
+322,Typical School Chair and Table 4,236.99,Exit_Sub2,0,2
+903,School Table,237.13,Exit_Sub_Main,0,2
+447,Typical School Chair and Table 2,237.26,Exit_Sub3,0,2
+502,Typical School Chair and Table 9,238.00,Exit_Sub3,0,2
+79,Typical School Chair and Table 11,238.03,Exit_Sub_Main,0,2
+116,School Table,238.58,Exit_Sub_Main,0,2
+604,Typical School Chair and Table 2,238.61,Exit_Sub2,0,2
+186,School Table,238.67,Exit_Sub3,0,2
+659,School Table,238.84,Exit_Sub_Main,0,2
+601,Typical School Chair and Table 5,239.11,Exit_Sub_Main,0,2
+861,School Table,239.21,Exit_Sub2,0,2
+126,Typical School Chair and Table 12,239.84,Exit_Sub_Main,0,2
+253,Typical School Chair and Table 1,240.34,Exit_Sub_Main,0,2
+306,Typical School Chair and Table 11,240.54,Exit_Sub_Main,0,2
+83,School Table,240.66,Exit_Sub_Main,0,2
+328,Typical School Chair and Table 9,241.27,Exit_Sub_Main,0,2
+540,School Table,241.36,Exit_Sub2,0,2
+880,Typical School Chair and Table 10,241.59,Exit_Sub3,0,2
+760,Typical School Chair and Table 13,241.77,Exit_Sub_Main,0,2
+392,School Table,241.88,Exit_Sub2,0,2
+594,Typical School Chair and Table 17,242.18,Exit_Sub_Main,0,2
+125,Typical School Chair and Table 4,242.26,Exit_Sub3,0,2
+430,Typical School Chair and Table 19,242.38,Exit_Sub1,0,2
+64,Typical School Chair and Table 13,242.47,Exit_Sub_Main,0,2
+985,Typical School Chair and Table 10,242.79,Exit_Sub1,0,2
+889,Typical School Chair and Table 20,243.24,Exit_Sub_Main,0,2
+409,School Table,244.04,Exit_Sub2,0,2
+150,School Table,244.23,Exit_Sub2,0,2
+42,School Table,244.37,Exit_Sub3,0,2
+575,Typical School Chair and Table 20,245.16,Exit_Sub2,0,2
+354,School Table,245.55,Exit_Sub2,0,2
+158,Typical School Chair and Table 16,245.62,Exit_Sub2,0,2
+49,School Table,246.12,Exit_Sub_Main,0,2
+82,School Table,246.36,Exit_Sub1,0,2
+966,Typical School Chair and Table 6,246.53,Exit_Sub2,0,2
+211,Typical School Chair and Table 20,246.69,Exit_Sub3,0,2
+260,School Table,247.28,Exit_Sub1,0,2
+844,Typical School Chair and Table 7,247.28,Exit_Sub2,0,2
+476,Typical School Chair and Table 14,247.51,Exit_Sub_Main,0,2
+858,Typical School Chair and Table 12,247.89,Exit_Sub_Main,0,2
+697,School Table,248.91,Exit_Sub2,0,2
+218,Typical School Chair and Table 7,249.74,Exit_Sub_Main,0,2
+654,Typical School Chair and Table 11,249.94,Exit_Sub_Main,0,2
+424,Typical School Chair and Table 18,250.13,Exit_Sub_Main,0,2
+425,School Table,250.14,Exit_Sub_Main,0,2
+703,School Table,250.39,Exit_Sub2,0,2
+739,Typical School Chair and Table 6,250.56,Exit_Sub_Main,0,2
+358,School Table,250.76,Exit_Sub_Main,0,2
+22,School Table,250.80,Exit_Sub2,0,2
+441,School Table,250.93,Exit_Sub_Main,0,2
+558,Typical School Chair and Table 11,252.01,Exit_Sub3,0,2
+640,Typical School Chair and Table 14,252.40,Exit_Sub_Main,0,2
+21,Typical School Chair and Table 12,252.74,Exit_Sub2,0,2
+236,Typical School Chair and Table 15,252.77,Exit_Sub2,0,2
+569,School Table,253.30,Exit_Sub2,0,2
+214,School Table,253.78,Exit_Sub_Main,0,2
+451,Typical School Chair and Table 13,254.03,Exit_Sub_Main,0,2
+226,Typical School Chair and Table 6,255.13,Exit_Sub_Main,0,2
+799,Typical School Chair and Table 6,255.20,Exit_Sub2,0,2
+864,School Table,255.59,Exit_Sub2,0,2
+401,Typical School Chair and Table 13,255.78,Exit_Sub_Main,0,2
+115,Typical School Chair and Table 16,255.81,Exit_Sub3,0,2
+91,School Table,256.07,Exit_Sub2,0,2
+714,School Table,256.16,Exit_Sub2,0,2
+156,School Table,256.69,Exit_Sub3,0,2
+701,Typical School Chair and Table,256.89,Exit_Sub1,0,2
+989,School Table,256.99,Exit_Sub_Main,0,2
+734,Typical School Chair and Table 4,257.29,Exit_Sub_Main,0,2
+84,Typical School Chair and Table 19,257.40,Exit_Sub1,0,2
+862,Typical School Chair and Table 4,257.42,Exit_Sub3,0,2
+637,Typical School Chair and Table 3,257.49,Exit_Sub_Main,0,2
+334,Typical School Chair and Table 20,257.60,Exit_Sub3,0,2
+696,School Table,257.90,Exit_Sub2,0,2
+527,School Table,258.25,Exit_Sub_Main,0,2
+151,School Table,258.55,Exit_Sub2,0,2
+215,Typical School Chair and Table 5,258.77,Exit_Sub_Main,0,2
+615,Typical School Chair and Table 15,258.93,Exit_Sub_Main,0,2
+454,Typical School Chair and Table 20,259.41,Exit_Sub3,0,2
+557,School Table,259.95,Exit_Sub2,0,2
+545,Typical School Chair and Table 8,260.28,Exit_Sub2,0,2
+469,Typical School Chair and Table 5,260.31,Exit_Sub3,0,2
+496,School Table,260.55,Exit_Sub3,0,2
+508,School Table,260.64,Exit_Sub2,0,2
+628,Typical School Chair and Table,260.85,Exit_Sub3,0,2
+129,Typical School Chair and Table 2,261.29,Exit_Sub_Main,0,2
+518,School Table,261.58,Exit_Sub2,0,2
+685,Typical School Chair and Table 3,261.64,Exit_Sub3,0,2
+961,Typical School Chair and Table 5,262.07,Exit_Sub_Main,0,2
+321,Typical School Chair and Table 5,262.11,Exit_Sub2,0,2
+63,Typical School Chair and Table 9,262.59,Exit_Sub_Main,0,2
+134,School Table,263.01,Exit_Sub2,0,2
+642,Typical School Chair and Table 18,263.02,Exit_Sub2,0,2
+195,School Table,263.25,Exit_Sub_Main,0,2
+377,Typical School Chair and Table 11,263.39,Exit_Sub3,0,2
+243,Typical School Chair and Table 3,263.40,Exit_Sub2,0,2
+36,School Table,263.66,Exit_Sub2,0,2
+948,School Table,263.78,Exit_Sub2,0,2
+510,Typical School Chair and Table 20,264.18,Exit_Sub_Main,0,2
+905,School Table,264.21,Exit_Sub3,0,2
+96,School Table,265.03,Exit_Sub2,0,2
+815,Typical School Chair and Table 8,265.29,Exit_Sub_Main,0,2
+170,School Table,265.74,Exit_Sub2,0,2
+624,School Table,266.06,Exit_Sub_Main,0,2
+310,Typical School Chair and Table 13,266.43,Exit_Sub3,0,2
+925,Typical School Chair and Table 12,266.76,Exit_Sub_Main,0,2
+679,Typical School Chair and Table 20,267.35,Exit_Sub_Main,0,2
+70,Typical School Chair and Table 12,267.58,Exit_Sub_Main,0,2
+206,School Table,267.83,Exit_Sub3,0,2
+112,Typical School Chair and Table 16,268.35,Exit_Sub2,0,2
+775,School Table,268.77,Exit_Sub_Main,0,2
+521,School Table,269.52,Exit_Sub2,0,2
+367,Typical School Chair and Table 17,269.91,Exit_Sub3,0,2
+8,School Table,270.25,Exit_Sub3,0,2
+435,School Table,270.36,Exit_Sub_Main,0,2
+207,School Table,270.62,Exit_Sub3,0,2
+831,Typical School Chair and Table 16,270.95,Exit_Sub3,0,2
+31,School Table,271.34,Exit_Sub_Main,0,2
+57,School Table,271.96,Exit_Sub_Main,0,2
+191,Typical School Chair and Table 2,272.06,Exit_Sub2,0,2
+313,School Table,272.94,Exit_Sub_Main,0,2
+190,Typical School Chair and Table 12,273.11,Exit_Sub_Main,0,2
+141,School Table,273.48,Exit_Sub_Main,0,2
+598,Typical School Chair and Table,273.59,Exit_Sub1,0,2
+754,School Table,273.77,Exit_Sub_Main,0,2
+51,School Table,274.02,Exit_Sub3,0,2
+583,Typical School Chair and Table 6,274.23,Exit_Sub_Main,0,2
+846,School Table,274.41,Exit_Sub_Main,0,2
+769,School Table,274.41,Exit_Sub3,0,2
+817,School Table,274.61,Exit_Sub1,0,2
+248,Typical School Chair and Table 18,274.71,Exit_Sub2,0,2
+301,School Table,274.82,Exit_Sub2,0,2
+271,School Table,274.87,Exit_Sub3,0,2
+787,School Table,275.02,Exit_Sub1,0,2
+666,School Table,275.64,Exit_Sub1,0,2
+809,Typical School Chair and Table 7,275.93,Exit_Sub3,0,2
+497,School Table,275.97,Exit_Sub2,0,2
+357,School Table,276.13,Exit_Sub1,0,2
+653,School Table,276.55,Exit_Sub3,0,2
+530,Typical School Chair and Table 16,277.06,Exit_Sub2,0,2
+693,School Table,277.13,Exit_Sub_Main,0,2
+919,Typical School Chair and Table 1,277.38,Exit_Sub_Main,0,2
+493,School Table,277.53,Exit_Sub3,0,2
+144,Typical School Chair and Table 15,278.53,Exit_Sub_Main,0,2
+1,School Table,279.13,Exit_Sub2,0,2
+411,Typical School Chair and Table 18,279.19,Exit_Sub2,0,2
+776,Typical School Chair and Table 11,279.36,Exit_Sub_Main,0,2
+127,Typical School Chair and Table 9,279.99,Exit_Sub_Main,0,2
+561,School Table,280.48,Exit_Sub2,0,2
+389,School Table,280.73,Exit_Sub1,0,2
+269,School Table,281.25,Exit_Sub2,0,2
+536,Typical School Chair and Table 3,281.47,Exit_Sub_Main,0,2
+308,School Table,282.36,Exit_Sub1,0,2
+382,Typical School Chair and Table 1,282.76,Exit_Sub_Main,0,2
+456,Typical School Chair and Table 9,282.78,Exit_Sub_Main,0,2
+645,School Table,283.10,Exit_Sub2,0,2
+318,Typical School Chair and Table 14,283.21,Exit_Sub_Main,0,2
+135,School Table,283.37,Exit_Sub2,0,2
+299,School Table,283.69,Exit_Sub2,0,2
+16,School Table,284.72,Exit_Sub3,0,2
+341,Typical School Chair and Table,284.91,Exit_Sub2,0,2
+38,Typical School Chair and Table 10,285.44,Exit_Sub3,0,2
+86,Typical School Chair and Table 11,285.52,Exit_Sub_Main,0,2
+290,School Table,285.61,Exit_Sub3,0,2
+895,Typical School Chair and Table 17,285.79,Exit_Sub_Main,0,2
+264,Typical School Chair and Table 19,286.52,Exit_Sub_Main,0,2
+414,Typical School Chair and Table,286.56,Exit_Sub2,0,2
+177,School Table,286.85,Exit_Sub_Main,0,2
+28,School Table,286.90,Exit_Sub2,0,2
+88,Typical School Chair and Table 2,287.26,Exit_Sub_Main,0,2
+342,School Table,287.46,Exit_Sub_Main,0,2
+629,Typical School Chair and Table 17,287.60,Exit_Sub3,0,2
+606,School Table,287.88,Exit_Sub_Main,0,2
+258,Typical School Chair and Table 7,287.95,Exit_Sub1,0,2
+910,School Table,290.54,Exit_Sub2,0,2
+246,Typical School Chair and Table 1,291.08,Exit_Sub3,0,2
+869,School Table,291.41,Exit_Sub_Main,0,2
+181,School Table,291.74,Exit_Sub_Main,0,2
+24,Typical School Chair and Table 1,292.87,Exit_Sub_Main,0,2
+689,School Table,292.96,Exit_Sub2,0,2
+92,School Table,293.34,Exit_Sub3,0,2
+188,Typical School Chair and Table 19,293.48,Exit_Sub_Main,0,2
+981,School Table,293.89,Exit_Sub_Main,0,2
+353,Typical School Chair and Table 12,293.98,Exit_Sub_Main,0,2
+884,School Table,294.14,Exit_Sub_Main,0,2
+110,School Table,294.31,Exit_Sub3,0,2
+475,Typical School Chair and Table 9,295.12,Exit_Sub3,0,2
+440,Typical School Chair and Table 17,296.27,Exit_Sub_Main,0,2
+753,Typical School Chair and Table 18,297.00,Exit_Sub_Main,0,2
+182,School Table,297.21,Exit_Sub_Main,0,2
+541,Typical School Chair and Table 18,297.75,Exit_Sub3,0,2
+678,Typical School Chair and Table 20,298.64,Exit_Sub1,0,2
+130,Typical School Chair and Table 3,299.22,Exit_Sub3,0,2
+976,Typical School Chair and Table 14,299.31,Exit_Sub_Main,0,2
+97,Typical School Chair and Table 13,299.61,Exit_Sub3,0,2
+490,Typical School Chair and Table 15,300.04,Exit_Sub3,0,2
+254,Typical School Chair and Table 18,300.47,Exit_Sub2,0,2
+779,School Table,301.35,Exit_Sub3,0,2
+738,School Table,301.50,Exit_Sub_Main,0,2
+827,School Table,301.78,Exit_Sub3,0,2
+870,Typical School Chair and Table 3,304.53,Exit_Sub2,0,2
+227,Typical School Chair and Table 2,304.94,Exit_Sub2,0,2
+323,Typical School Chair and Table 17,306.34,Exit_Sub_Main,0,2
+76,Typical School Chair and Table 5,307.20,Exit_Sub_Main,0,2
+59,School Table,307.78,Exit_Sub_Main,0,2
+174,School Table,307.80,Exit_Sub_Main,0,2
+54,School Table,308.53,Exit_Sub3,0,2
+373,Typical School Chair and Table 10,308.97,Exit_Sub2,0,2
+124,School Table,309.16,Exit_Sub3,0,2
+673,Typical School Chair and Table 20,310.04,Exit_Sub3,0,2
+419,School Table,310.32,Exit_Sub3,0,2
+533,Typical School Chair and Table 1,311.03,Exit_Sub_Main,0,2
+241,School Table,311.52,Exit_Sub3,0,2
+198,School Table,311.57,Exit_Sub_Main,0,2
+946,Typical School Chair and Table 11,311.62,Exit_Sub_Main,0,2
+863,School Table,311.64,Exit_Sub2,0,2
+47,School Table,311.86,Exit_Sub1,0,2
+967,Typical School Chair and Table 16,312.12,Exit_Sub_Main,0,2
+819,Typical School Chair and Table 7,312.45,Exit_Sub3,0,2
+45,Typical School Chair and Table 1,313.92,Exit_Sub_Main,0,2
+997,Typical School Chair and Table 14,316.32,Exit_Sub_Main,0,2
+534,School Table,316.54,Exit_Sub1,0,2
+407,School Table,322.77,Exit_Sub_Main,0,2
+162,School Table,322.95,Exit_Sub_Main,0,2
+937,School Table,323.44,Exit_Sub_Main,0,2
+39,School Table,324.74,Exit_Sub_Main,0,2
+852,Typical School Chair and Table 7,325.33,Exit_Sub_Main,0,2
+956,School Table,325.68,Exit_Sub_Main,0,2
+860,School Table,325.87,Exit_Sub2,0,2
+614,Typical School Chair and Table 3,326.03,Exit_Sub_Main,0,2
+723,School Table,326.06,Exit_Sub_Main,0,2
+743,School Table,326.15,Exit_Sub_Main,0,2
+740,School Table,326.31,Exit_Sub1,0,2
+742,School Table,326.91,Exit_Sub1,0,2
+960,School Table,327.90,Exit_Sub_Main,0,2
+792,School Table,328.17,Exit_Sub2,0,2
+442,School Table,329.05,Exit_Sub2,0,2
+888,School Table,329.55,Exit_Sub2,0,2
+293,Typical School Chair and Table 8,329.91,Exit_Sub2,0,2
+67,Typical School Chair and Table 1,330.51,Exit_Sub1,0,2
+202,School Table,330.58,Exit_Sub_Main,0,2
+680,Typical School Chair and Table 8,331.18,Exit_Sub1,0,2
+404,Typical School Chair and Table 2,331.96,Exit_Sub_Main,0,2
+69,Typical School Chair and Table 2,332.40,Exit_Sub_Main,0,2
+897,Typical School Chair and Table 19,334.78,Exit_Sub_Main,0,2
+335,School Table,335.06,Exit_Sub_Main,0,2
+104,School Table,335.58,Exit_Sub_Main,0,2
+331,Typical School Chair and Table 2,335.88,Exit_Sub_Main,0,2
+23,Typical School Chair and Table 4,338.91,Exit_Sub_Main,0,2
+635,Typical School Chair and Table 10,341.15,Exit_Sub_Main,0,2

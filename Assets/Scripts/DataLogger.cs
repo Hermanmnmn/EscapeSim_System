@@ -21,10 +21,13 @@ public class DataLogger : MonoBehaviour
     // 輸出字串緩衝
     private StringBuilder _mainLogCsv;
     private StringBuilder _agentLogCsv;
+    private StringBuilder _txtLog;
+    private Dictionary<string, string> _previousValues;
     
     // 目前實驗參數
     private int _currentPopulation;
     private int _currentSeed;
+    private int _currentSignCount;
     private bool _isLogging = false;
 
     void Awake()
@@ -38,10 +41,11 @@ public class DataLogger : MonoBehaviour
     /// <summary>
     /// 初始化新的實驗日誌紀錄
     /// </summary>
-    public void StartLogging(int population, int seed)
+    public void StartLogging(int population, int seed, int signCount)
     {
         _currentPopulation = population;
         _currentSeed = seed;
+        _currentSignCount = signCount;
         
         // 尋找場上的感測與出口
         _zoneSensors = FindObjectsByType<ZoneSensor>(FindObjectsSortMode.None);
@@ -49,9 +53,11 @@ public class DataLogger : MonoBehaviour
         
         _mainLogCsv = new StringBuilder();
         _agentLogCsv = new StringBuilder();
+        _txtLog = new StringBuilder();
+        _previousValues = new Dictionary<string, string>();
 
         // 建立主 CSV 表頭
-        _mainLogCsv.Append("Time(s),TotalEscaped,ActiveAgents,AverageSpeed,MaxCongestion");
+        _mainLogCsv.Append("Time(s),TotalEscaped,ActiveAgents,AverageSpeed,MaxCongestion,Seed,ActiveSigns");
         
         // 動態加上各出口與各區域
         if (_exits != null)
@@ -72,7 +78,7 @@ public class DataLogger : MonoBehaviour
         _mainLogCsv.AppendLine();
 
         // 建立個體 CSV 表頭
-        _agentLogCsv.AppendLine("AgentID,SpawnZone,EscapeTime(s),ExitUsed");
+        _agentLogCsv.AppendLine("AgentID,SpawnZone,EscapeTime(s),ExitUsed,Seed,ActiveSigns");
 
         _isLogging = true;
         StartCoroutine(LogRoutine());
@@ -115,7 +121,29 @@ public class DataLogger : MonoBehaviour
                 }
             }
 
-            _mainLogCsv.Append($"{curTime:F2},{totalEscaped},{activeAgents},{avgSpeed:F4},{maxCongestion}");
+            _mainLogCsv.Append($"{curTime:F2},{totalEscaped},{activeAgents},{avgSpeed:F4},{maxCongestion},{_currentSeed},{_currentSignCount}");
+
+            bool hasChanges = false;
+            StringBuilder changeLog = new StringBuilder();
+            changeLog.Append($"[{curTime:F2}s] ");
+
+            void CheckAndRecord(string key, string newVal)
+            {
+                if (!_previousValues.TryGetValue(key, out string oldVal) || oldVal != newVal)
+                {
+                    if (oldVal != null)
+                    {
+                        changeLog.Append($"{key}:{oldVal}->{newVal} ");
+                        hasChanges = true;
+                    }
+                    _previousValues[key] = newVal;
+                }
+            }
+
+            CheckAndRecord("TotalEscaped", totalEscaped.ToString());
+            CheckAndRecord("ActiveAgents", activeAgents.ToString());
+            CheckAndRecord("AvgSpeed", avgSpeed.ToString("F4"));
+            CheckAndRecord("MaxCongestion", maxCongestion.ToString());
 
             // 統計目前聚集在出口附近的人數 (假設出口有掛 ZoneSensor 或透過 DynamicSign 算)
             if (_exits != null)
@@ -125,6 +153,7 @@ public class DataLogger : MonoBehaviour
                     // 這裡的邏輯可依實際 Exit 的計算方式調整，目前填 0，可改由 Agent 身上的目標統計
                     int headingToExit = allAgents.Count(a => a.gameObject.activeInHierarchy && a.GetDestination() == exit.transform);
                     _mainLogCsv.Append($",{headingToExit}");
+                    CheckAndRecord($"Exit_{exit.name}", headingToExit.ToString());
                 }
             }
 
@@ -133,10 +162,16 @@ public class DataLogger : MonoBehaviour
                 foreach (var z in _zoneSensors)
                 {
                     _mainLogCsv.Append($",{z.CurrentAgentCount}");
+                    CheckAndRecord($"Zone_{z.gameObject.name}", z.CurrentAgentCount.ToString());
                 }
             }
             
             _mainLogCsv.AppendLine();
+
+            if (hasChanges)
+            {
+                _txtLog.AppendLine(changeLog.ToString());
+            }
 
             yield return new WaitForSeconds(logInterval);
         }
@@ -148,7 +183,7 @@ public class DataLogger : MonoBehaviour
     public void LogAgentEscape(int agentID, string spawnZone, float escapeTime, string exitUsed)
     {
         if (!_isLogging) return;
-        _agentLogCsv.AppendLine($"{agentID},{spawnZone},{escapeTime:F2},{exitUsed}");
+        _agentLogCsv.AppendLine($"{agentID},{spawnZone},{escapeTime:F2},{exitUsed},{_currentSeed},{_currentSignCount}");
     }
 
     /// <summary>
@@ -164,12 +199,14 @@ public class DataLogger : MonoBehaviour
         if (!Directory.Exists(dirPath))
             Directory.CreateDirectory(dirPath);
 
-        string mainPath = Path.Combine(dirPath, $"Log_Agents{_currentPopulation}_Seed{_currentSeed}_{timestamp}.csv");
-        string agentPath = Path.Combine(dirPath, $"Log_Agents{_currentPopulation}_Seed{_currentSeed}_Individuals_{timestamp}.csv");
+        string mainPath = Path.Combine(dirPath, $"Log_Agents{_currentPopulation}_Seed{_currentSeed}_Signs{_currentSignCount}_{timestamp}.csv");
+        string agentPath = Path.Combine(dirPath, $"Log_Agents{_currentPopulation}_Seed{_currentSeed}_Signs{_currentSignCount}_Individuals_{timestamp}.csv");
+        string txtPath = Path.Combine(dirPath, $"Log_Agents{_currentPopulation}_Seed{_currentSeed}_Signs{_currentSignCount}_Changes_{timestamp}.txt");
 
         File.WriteAllText(mainPath, _mainLogCsv.ToString());
         File.WriteAllText(agentPath, _agentLogCsv.ToString());
+        File.WriteAllText(txtPath, _txtLog.ToString());
 
-        Debug.Log($"[DataLogger] 實驗記錄已儲存: \n{mainPath}\n{agentPath}");
+        Debug.Log($"[DataLogger] 實驗記錄已儲存: \n{mainPath}\n{agentPath}\n{txtPath}");
     }
 }

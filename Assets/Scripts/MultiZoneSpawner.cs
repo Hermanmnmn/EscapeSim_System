@@ -11,12 +11,13 @@ public class MultiZoneSpawner : MonoBehaviour
     [Header("生成設定")]
     public GameObject agentPrefab;              // CrowdAgent Prefab
     public float navMeshSampleRadius = 1.5f;    // NavMesh 取樣搜尋半徑
-    public int spawnCount = 100;                // 每次生成的目標人數
 
     /// <summary>
-    /// 自動尋找所有 SpawnDesk，並隨機生成直到滿指定人數 (spawnCount)
+    /// 對場景中所有 SpawnDesk 進行生成。
+    /// 保證同一個桌子最多只生成一個 Agent，避免疊羅漢。
+    /// 若 targetCount 為 -1，則在所有桌子都生成；若有指定，則隨機挑選對應數量的桌子生成。
     /// </summary>
-    public void SpawnAll()
+    public void SpawnAll(int targetCount = -1)
     {
         if (agentPrefab == null)
         {
@@ -32,13 +33,22 @@ public class MultiZoneSpawner : MonoBehaviour
             return;
         }
 
+        // 優化邏輯：洗牌法 (Fisher-Yates Shuffle) 打亂桌子陣列，保證隨機且不重複
+        for (int i = 0; i < desks.Length; i++)
+        {
+            int swapIndex = Random.Range(i, desks.Length);
+            GameObject temp = desks[i];
+            desks[i] = desks[swapIndex];
+            desks[swapIndex] = temp;
+        }
+
+        int totalToSpawn = targetCount == -1 ? desks.Length : Mathf.Min(targetCount, desks.Length);
         int totalSpawned = 0;
         int nextAgentID = 1;
 
-        // 隨機挑選桌子生成直到滿人
-        while (totalSpawned < spawnCount)
+        for (int i = 0; i < totalToSpawn; i++)
         {
-            GameObject desk = desks[Random.Range(0, desks.Length)];
+            GameObject desk = desks[i];
             
             NavMeshHit hit;
             if (NavMesh.SamplePosition(desk.transform.position, out hit, navMeshSampleRadius, NavMesh.AllAreas))
@@ -56,14 +66,9 @@ public class MultiZoneSpawner : MonoBehaviour
                 
                 totalSpawned++;
             }
-            else
-            {
-                // 若找不到位置就先跳過，下一個 Loop 再隨機抽
-                continue;
-            }
         }
         
         WorldState.Instance.ActiveAgentCount = totalSpawned;
-        Debug.Log($"[MultiZoneSpawner] 成功在桌子旁生成了 {totalSpawned} 名 Agent");
+        Debug.Log($"[MultiZoneSpawner] 成功生成了 {totalSpawned} 名 Agent (桌子總數: {desks.Length})");
     }
 }

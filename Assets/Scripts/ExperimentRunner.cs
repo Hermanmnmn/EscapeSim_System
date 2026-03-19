@@ -16,6 +16,7 @@ public class ExperimentRunner : MonoBehaviour
     public MultiZoneSpawner spawner;
     
     public float maxSimulationTime = 300f; // 大超時強制結束 (防卡死)
+    public float pathWaitTimeout = 30f; // 路徑預算防呆超時 (開放給用戶自行調整)
 
     private int _popIndex = 0;
     private int _seedIndex = 0;
@@ -82,42 +83,137 @@ public class ExperimentRunner : MonoBehaviour
                     }
 
                     // Step 1: 清場 (清除場上所有的 CrowdAgent)
-                    var agents = GameObject.FindGameObjectsWithTag("CrowdAgent");
-                    foreach (var a in agents) Destroy(a);
+                    // ★ 使用 FindObjectsByType 並加上 FindObjectsInactive.Include，
+                    //   這樣才能找到之前透過 SetActive(false) 逃生的小人！
+                    //   舊方法 FindGameObjectsWithTag 會完全错過這些小人，導致它們累積左偉。
+                    CrowdAgent[] oldAgents = FindObjectsByType<CrowdAgent>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+                    foreach (var a in oldAgents) Destroy(a.gameObject);
                     WorldState.Instance.EvacuatedCount = 0;
+                    WorldState.Instance.ActiveAgentCount = 0; // ★ 重置 Active Count
                     
                     // 等待一幀確保舊物件被完全 Destroy 掉
-                    yield return null; 
+                    yield return null;
 
                     // Step 2: 設定變因
                     WorldState.Instance.RandomSeed = currentSeed;
                     UnityEngine.Random.InitState(currentSeed);
-                    
-                    MultiZoneSpawner foundSpawner = FindAnyObjectByType<MultiZoneSpawner>();
-                    if (foundSpawner != null)
-                    {
-                        foundSpawner.spawnCount = targetPopulation;
-                    }
 
+                    // ★ 防殘留：強制關閉模擬狀態，確保上一輪的殘留 flag 不會讓新 Agent 提前起跑
+                    SystemManager.IsSimulationActive = false;
+                    WorldState.Instance.Switch = 0;
+
+                    // ★ 重置 timeScale = 1：上一輪結束時 timeScale 被設為 0，
+                    //   如果不恢復，後面的 yield return null 和所有基於 Time.timeScale 的邏輯都會被凍結。
+                    //   路徑預算階段需要正常的幀流動，但模擬尚未開始，所以設 1x 即可。
+                    Time.timeScale = 1f;
+                    Time.fixedDeltaTime = 0.02f;
+
+                    MultiZoneSpawner foundSpawner = FindAnyObjectByType<MultiZoneSpawner>();
+                    
                     // Step 3: 生成
                     if (foundSpawner != null)
                     {
-                        foundSpawner.SpawnAll();
+                        foundSpawner.SpawnAll(targetPopulation);
                     }
 
-                    // Step 4: 路徑預熱 (Path Pre-warming) ─────────────────────────────
-                    // Agent 在 Start() 中已送出 SetDestination，NavMesh 正在背景算路。
-                    // 這 10 秒是黃金預熱視窗，讓 CPU 消化所有 SetDestination 的計算，
-                    // 確保每一個 Agent 起跑前路徑都已就緒，消除「擠牙膏效應」。
-                    // 期間 Switch=0、IsSimulationActive=false，Agent 腳黏在地上不動。
-                    Debug.Log($"[ExperimentRunner] 路徑預熱中...（{targetPopulation} 個 Agent，等待 10 秒）");
-                    yield return new WaitForSecondsRealtime(10.0f);
+                    // ★ 等待一幀：確保所有 Agent 的 Awake() + Start() 完整跑完，
+                    //   這樣 AgentLogicLoop 已啟動並正確被 hasStarted==false 卡住。
+                    yield return null;
+
+                    // Step 4: 分批路徑預算 (Batched Path Calculation) ───────────────────
+                    // 自動化模式下 CrowdAgent.Start() 不會自行算路，
+                    // 改由這裡每幀算一批（BATCH_SIZE），攤平 CPU 負載。
+                    // 全部算完後才進入 Step 5 鳴槍，徹底消除「擠牙膏效應」。
+                    CrowdAgent[] allAgents = FindObjectsByType<CrowdAgent>(FindObjectsSortMode.None);
+                    int totalAgents = allAgents.Length;
+
+                    const int BATCH_SIZE = 30; // 每幀最多算幾條路徑（可依硬體能力調整）
+                    int calculated = 0;
+                    Debug.Log($"[ExperimentRunner] 開始分批路徑預算...（共 {totalAgents} 個 Agent，每幀 {BATCH_SIZE} 個）");
+                    
+                    float pathCalcStartTime = Time.realtimeSinceStartup;
+
+                    for (int i = 0; i < totalAgents; i++)
+                    {
+                        allAgents[i].CalculatePathNow();
+                        calculated++;
+                        if (calculated % BATCH_SIZE == 0)
+                        {
+                            yield return null; // 每算完一批就讓出一幀
+                        }
+                    }
+                    yield return null; // 最後再讓出一幀，確保所有 SetPath 生效
+
+                    // 安全檢查：輪詢所有 Agent 的 IsPathReady（理論上此時應全部 true）
+                    // 這裡的 pathWaitTimer 用 Time.unscaledDeltaTime，不受 timeScale 影響
+                    float pathWaitTimer = 0f;
+                    while (pathWaitTimer < pathWaitTimeout)
+                    {
+                        bool allReady = true;
+                        foreach (var a in allAgents)
+                        {
+                            if (a != null && a.gameObject.activeInHierarchy && !a.IsPathReady)
+                            {
+                                allReady = false;
+                                break;
+                            }
+                        }
+                        if (allReady) break;
+                        pathWaitTimer += Time.unscaledDeltaTime;
+                        yield return null;
+                    }
+                    
+                    float totalCalcTime = Time.realtimeSinceStartup - pathCalcStartTime;
+                    
+                    if (pathWaitTimer >= pathWaitTimeout)
+                    {
+                        Debug.LogWarning($"[ExperimentRunner] 路徑預算超時（{pathWaitTimeout} 秒），強制開始模擬。");
+                    }
+                    Debug.Log($"[ExperimentRunner] 所有 Agent 路徑就緒！（{totalAgents} 個，耗時約 {totalCalcTime:F2} 秒）");
 
                     // Step 5: 鳴槍起跑 ────────────────────────────────────────────────
-                    // 預熱完畢，重置計時器並同步解除所有 Agent 煞車。
+                    // ★ 先呼叫 TrueSyncStart 讓所有 ApplyPathAndRelease 協程開始執行，
+                    //   但 Switch 和 IsSimulationActive 此刻仍為 0/false，小人不會移動。
+                    Debug.Log($"[ExperimentRunner] 執行真．同步起跑準備！啟動 {totalAgents} 個 Agent 的路徑灌入協程");
+                    foreach (var a in allAgents)
+                    {
+                        if (a != null && a.gameObject.activeInHierarchy)
+                        {
+                            a.TrueSyncStart();
+                        }
+                    }
+
+                    // ★ 等待所有 ApplyPathAndRelease 協程完成（確保 isOnNavMesh 確認 + 路徑灌入）
+                    yield return new WaitForSecondsRealtime(0.25f);
+
+                    // ★ 路徑全數灌入完畢後，才正式鳴槍：計時器歸零＋開啟模擬狀態
                     WorldState.Instance.SimulationTime = 0f;
-                    WorldState.Instance.Switch = 1;         
-                    SystemManager.IsSimulationActive = true; // Agent 的 Update() 監聽到此 flag 即自動起跑
+                    WorldState.Instance.Switch = 1;
+                    SystemManager.IsSimulationActive = true;
+                    Debug.Log($"[ExperimentRunner] 所有 Agent 路徑發射完畢，模擬計時正式開始。");
+
+                    // ★ 真・同步釋放煞車（繞過小人的 Staggered Coroutine 延遲）
+                    // 確保 1000 個小人在同一幀（0ms 誤差）放開煞車！
+                    foreach (var a in allAgents)
+                    {
+                        if (a != null && a.gameObject.activeInHierarchy)
+                        {
+                            a.ReleaseBrake();
+                        }
+                    }
+
+                    // **自動切換鏡頭為自由模式，並開啟建築透明**
+                    CameraFollow camFollow = Camera.main?.GetComponent<CameraFollow>();
+                    if (camFollow != null)
+                    {
+                        camFollow.currentMode = CameraFollow.CameraMode.Free;
+                    }
+                    
+                    if (systemManager != null && !WorldState.Instance.IsTransparentMode)
+                    {
+                        // 若為非透明，切換為透明
+                        systemManager.ToggleSchoolTransparency();
+                    }
 
                     // 恢復 SystemManager 設定的速度倍率
                     if (systemManager != null)
@@ -127,7 +223,7 @@ public class ExperimentRunner : MonoBehaviour
                     
                     if (dataLogger != null)
                     {
-                        dataLogger.StartLogging(targetPopulation, currentSeed);
+                        dataLogger.StartLogging(targetPopulation, currentSeed, signCount);
                     }
 
                     // Step 6: 等待結束 (防卡死機制：改為靜止超時偵測) ────────────────

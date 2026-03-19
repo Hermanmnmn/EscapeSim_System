@@ -7,7 +7,7 @@ public class DoorSetupEditor
     public static void SetupDoors()
     {
         int modifiedCount = 0;
-        GameObject[] allObjects = Object.FindObjectsOfType<GameObject>();
+        GameObject[] allObjects = Object.FindObjectsByType<GameObject>(FindObjectsSortMode.None);
 
         foreach (GameObject obj in allObjects)
         {

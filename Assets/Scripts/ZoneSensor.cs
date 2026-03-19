@@ -28,8 +28,10 @@ public class ZoneSensor : MonoBehaviour
 
     void Update()
     {
-        // 安全保護：移除已被 Destroy 的物件，修正計數
-        agentsInZone.RemoveWhere(c => c == null);
+        // 安全保護：移除已被 Destroy 或已被 SetActive(false) 的物件
+        // ★ 關鍵修復：CrowdAgent 到達出口後是用 gameObject.SetActive(false) 而非 Destroy，
+        //   這不會觸發 OnTriggerExit，導致幽靈計數。必須手動清理。
+        agentsInZone.RemoveWhere(c => c == null || !c.gameObject.activeInHierarchy);
         CurrentAgentCount = agentsInZone.Count;
     }
 

@@ -1,0 +1,208 @@
+# Development Rules for AI Agent
+
+## 🛡️ Critical Safety Rules
+1. **Do NOT modify Hardware Protocol:** The JSON keys and Serial string formats are hard-coded in hardware. Changing them in Unity without changing Firmware will break the system.
+2. **Single Source of Truth:** All inputs AND simulation metrics must be stored in `WorldState.cs`. Do not create local static variables for global data.
+3. **Thread Safety:** Serial and TCP run on background threads. NEVER call Unity APIs (like `Instantiate`, `transform.position`) directly from network callbacks. Use `ConcurrentQueue` or `Update()` loop.
+4. **Headless / Batch Mode Safety:** When `config.json` is present in the project root, Unity automatically enters headless black-box mode. Do NOT add any scene-startup logic that requires user interaction or a GUI, as it will deadlock batchmode execution.
+5. **Black-Box Contract:** `ExperimentRunner.Start()` is the sole entry point for automated runs. It owns the full lifecycle: config read → spawn → simulate → CSV/JSON export → `Application.Quit()`. Do not call `Quit()` from anywhere else.
+
+## 🏗️ Coding Standards
+- **Unity C#:** Use `[Header]` for Inspector variables. Use `Debug.Log` sparingly to avoid lag.
+- **Coroutine timing:** Use `WaitForSecondsRealtime` (not `WaitForSeconds`) for timing that must be immune to `Time.timeScale` changes.
+- **MicroPython:** Keep the main loop tight (sleep 50ms).
+- **Arduino C++:** Ensure Wi-Fi reconnection logic exists.
+- **Python scripts:** Place external tooling (`auto_optimizer.py`) in the project root. Use `subprocess.run()` with an explicit `timeout` to avoid hanging the optimizer when Unity crashes.
+
+## 📐 Objective Function Convention
+```
+Score = TotalEvacTime + Alpha × AvgPeakCrowding + Beta × TotalStuckTime
+```
+- **Lower score = better outcome.**
+- Default weights: `Alpha = 2.0`, `Beta = 1.5` (adjustable in Inspector).
+- Crowding is sampled every frame from `ZoneSensor.CurrentAgentCount`.
+- Stuck time is accumulated in `CrowdAgent.AgentLogicLoop` at 5 Hz (0.05 m/s threshold).
+
+## 🚀 Current Phase: Automated Optimization & Paper Writing
+- The simulation is now a **black-box function**: write `config.json` → run `EscapeSim.exe -batchmode` → read `result.json`.
+- `auto_optimizer.py` drives Grid Search / Random Search over `activeSigns` and `agentSpeed`.
+- Focus on: Running optimizer experiments, analysing `optimization_log.csv`, writing research paper.
+- Do not refactor the core networking stack unless it is broken.
+
+Headless Physics Rule: In batchmode, the simulation runs at maximum speed. ANY movement or density calculation MUST rely on strict fixedDeltaTime or NavMeshAgent's internal physics. Do NOT use Time.deltaTime for core scientific metrics calculation.
+# GodMode CPS System Architecture
+
+## 1. System Overview
+This project is a Cyber-Physical System (CPS) for disaster evacuation simulation. It integrates Real-time Reality Capture (iOS), Digital Twin Simulation (Unity), and Physical Control Interfaces (Micro:bit/ESP32), and now supports a fully **automated headless optimization pipeline** driven by an external Python optimizer.
+
+---
+
+## 2. Node Definitions
+
+### 🟢 Core Brain: Unity PC (Windows)
+- **Role:** Central processing, simulation, and command center.
+- **Key Scripts:**
+
+| Script | Role |
+|---|---|
+| `SystemManager.cs` | Central logic controller; owns `IsSimulationActive`, `GlobalSpeedMultiplier` |
+| `WorldState.cs` | Singleton data store — Single Source of Truth for all runtime state & metrics |
+| `SerialController.cs` | Handles Micro:bit input via USB Serial (auto-disabled in AutoMode) |
+| `NetworkManager.cs` | Handles ESP32 output via TCP (Port 8888) |
+| `MapRenderer.cs` | Handles iOS LiDAR input via TCP (Port 8889) |
+| `ExperimentRunner.cs` | Automated multi-run controller; reads `config.json`, exports `result.json` |
+| `DataLogger.cs` | Per-run CSV logger (1 Hz sampling); writes to `LogBook/` |
+| `CrowdAgent.cs` | NavMesh agent logic; density-speed model; accumulates stuck time |
+| `MultiZoneSpawner.cs` | Spawns crowd agents across named zones with a given seed |
+| `ZoneSensor.cs` | Counts agents inside a trigger zone; feeds congestion metrics |
+| `SmartSign.cs` | Intelligent evacuation sign; can redirect agent destinations |
+| `DynamicSign.cs` | ESP32-facing sign bridge |
+| `ExitNode.cs` | Exit trigger definition |
+| `UIManager.cs` | HUD overlay (agent count, time, score) |
+| `CameraFollow.cs` | Supports Free / Follow / Top-Down camera modes |
+
+---
+
+### 🔵 Sensory Node: iPhone 15 Pro Max (iOS)
+- **Role:** LiDAR scanning & Point Cloud streaming.
+- **Protocol:** TCP Client → Unity IP : 8889.
+- **Data:** JSON `{ "type": "3d_pointcloud", "obstacles_3d": [[x,y,z]...] }`.
+- **Optimization:** Batched transmission (2000 pts/batch), Downsampling (Stride 20).
+
+---
+
+### 🟡 Control Node: Micro:bit V2 (Python)
+- **Role:** Physical user interface (Tangible UI).
+- **Protocol:** USB Serial (Baud 115200).
+- **Data Format:** `J_X:512,J_Y:512,KNOB_H:0,KNOB_S:0,SW:1,J_BTN:0,R_BTN:0\n`
+- **Controls:**
+  - Joystick: Cursor Movement (X/Z).
+  - Knob A: Cursor Height (Y).
+  - Knob B: Crowd Panic Speed.
+  - Switch: System Arm/Disarm (starts/stops simulation).
+  - Buttons: Fire Trigger / Reset.
+- **⚠️ Auto-disabled** when `ExperimentRunner` is active (AutoMode), to prevent hardware interference.
+
+---
+
+### 🟠 Actuator Node: ESP32 + LED Matrix (C++)
+- **Role:** Dynamic Signage in the real world.
+- **Protocol:** TCP Client → Unity IP : 8888.
+- **Commands:** `DIR:L` (Left), `DIR:R` (Right), `DIR:S` (Stop), `DIR:W` (Wait/Smile).
+
+---
+
+### 🐍 Optimization Node: Python (Windows, External)
+- **Role:** Black-box parameter optimizer; drives the Unity build autonomously.
+- **Script:** `auto_optimizer.py` (project root).
+- **Modes:** Grid Search, Random Search.
+- **Search Space:** `activeSigns ∈ {0,2,5,8,10}`, `agentSpeed ∈ [2.0, 8.0]`.
+- **Flow:**
+  1. Write `config.json` → Launch `EscapeSim.exe -batchmode -nographics`
+  2. Wait for process exit (triggered by `Application.Quit()` inside Unity)
+  3. Read `result.json` → Record score
+  4. Repeat N times per parameter set → average score
+  5. Append row to `optimization_log.csv`
+
+---
+
+## 3. Data Flow
+
+### Interactive / Live Mode
+```
+iOS LiDAR  ──► MapRenderer ──►┐
+Micro:bit  ──► SerialController►│ WorldState.cs ◄──► SystemManager.cs ──► NetworkManager ──► ESP32
+Keyboard   ──► SerialController►│                         │
+                                └──────────────────────────┘
+                                         │
+                              CrowdAgent × N (NavMesh)
+```
+
+### Headless Optimization Mode
+```
+auto_optimizer.py
+   │  write config.json
+   ▼
+EscapeSim.exe -batchmode
+   │  ExperimentRunner.Start()
+   │    ├─ Read config.json
+   │    ├─ SpawnAll (agentRadius, agentSpeed applied)
+   │    ├─ Path pre-warm → TrueSyncStart → ReleaseBrake
+   │    ├─ Simulate (ZoneSensor crowding sampled every frame)
+   │    │   └─ CrowdAgent.AgentLogicLoop → TotalStuckTime += 0.2s
+   │    ├─ SaveAndCloseLogs → LogBook/*.csv
+   │    ├─ Compute Score = EvacTime + α·AvgCrowd + β·StuckTime
+   │    └─ Write result.json → Application.Quit()
+   │  read result.json
+   ▼
+optimization_log.csv
+```
+
+## 4. Key State Flags (WorldState.cs)
+
+| Field | Type | Description |
+|---|---|---|
+| `Switch` | int | 0 = Idle, 1 = Simulation running |
+| `EvacuatedCount` | int | Agents that reached an exit |
+| `ActiveAgentCount` | int | Agents still on NavMesh |
+| `SimulationTime` | float | Elapsed simulation time (seconds) |
+| `PeakCrowdingAccumulator` | float | Sum of per-frame max ZoneSensor count |
+| `CrowdingSampleCount` | int | Number of samples (denominator for average) |
+| `TotalStuckTime` | float | Total agent-seconds spent stuck (< 0.05 m/s) |
+
+| Static Flag | Location | Description |
+|---|---|---|
+| `SystemManager.IsSimulationActive` | SystemManager | Guards agent movement |
+| `SystemManager.IsAutoMode` | SystemManager | Disables manual controls |
+| `SystemManager.GlobalSpeedMultiplier` | SystemManager | timeScale-relative speed factor |
+
+File I/O Standard: config.json and result.json MUST ALWAYS be read/written from Application.dataPath (in Editor) or the exact same directory as the .exe (in Build). Python script must pass the working directory or use relative paths consistently.
+# Current Task List
+
+## ✅ Completed
+
+- [x] **Crowd Agent Sync Start:** Pre-warm paths in batch → `TrueSyncStart()` → `ReleaseBrake()` — eliminates toothpaste effect.
+- [x] **Density-Speed Model:** `CrowdAgent` adjusts speed based on local neighbor count (Physics.OverlapSphere, 5 Hz).
+- [x] **Data Logger (CSV):** `DataLogger.cs` records per-run and per-agent CSV to `LogBook/`.
+- [x] **Automated Experiment Loop:** `ExperimentRunner.cs` iterates over `populations × seeds × activeSignCounts`.
+- [x] **Objective Function:** `Score = EvacTime + 2.0 × AvgPeakCrowding + 1.5 × TotalStuckTime` (lower = better).
+- [x] **Headless / Black-Box Mode:** Presence of `config.json` triggers single-run mode → writes `result.json` → `Application.Quit()`.
+- [x] **External Python Optimizer:** `auto_optimizer.py` runs Grid Search / Random Search over `activeSigns` and `agentSpeed`, averages 3 runs per set, logs to `optimization_log.csv`.
+- [x] **WorldState Metrics:** Added `PeakCrowdingAccumulator`, `CrowdingSampleCount`, `TotalStuckTime` to `WorldState.cs`.
+
+---
+
+## 🔄 In Progress
+
+- [ ] **Run Optimizer Experiments:** Execute `auto_optimizer.py` in grid mode to find the best `(activeSigns, agentSpeed)` combination.
+- [ ] **Analyse Results:** Load `optimization_log.csv` into Python/Excel; plot score heatmap.
+
+---
+
+## Priority 1: Paper Writing (Data Collection) 📄
+- [ ] **Experiment A — Baseline:** Record evacuation results with `activeSigns=0` across all seeds/populations.
+- [ ] **Experiment B — Guided:** Record evacuation results with optimal `activeSigns` from optimizer.
+- [ ] **Statistical Comparison:** Run t-test / Wilcoxon on Score distributions between A and B.
+- [ ] **Write Section 4 (Results):** Include time series plots and heatmaps from `optimization_log.csv`.
+
+---
+
+## Priority 2: Simulation Quality 🧠
+- [ ] **Hologram Shader:** Replace purple cubes with a transparent, glowing wireframe shader on `SmartSign` prefabs.
+- [ ] **UI Dashboard:** Extend `UIManager` Canvas to show live Score estimate, Avg Crowding, and Stuck %.
+- [ ] **Fire Visuals:** Add particle effects to `FirePrefab`; ensure `NavMeshObstacle` (Carve) is enabled.
+
+---
+
+## Priority 3: iOS App Polish 📱
+- [ ] **UI Update:** Ensure App shows connection status and point count clearly.
+- [ ] **Stability:** Verify `NaN` filtering is working in `MapRenderer.cs`.
+
+---
+
+## Priority 4: Optimizer Extension 🔧
+- [ ] **Bayesian Optimization:** Replace Grid/Random Search in `auto_optimizer.py` with `scikit-optimize` (BayesSearchCV) for faster convergence.
+- [ ] **Parallel Runs:** Launch multiple Unity instances simultaneously (different ports / directories) for speedup.
+- [ ] **Early Stopping:** If optimizer detects Score plateau, stop early to save compute time.
+
+[ ] Automated Charting Pipeline: Write a Python script (plot_results.py) to parse optimization_log.csv and automatically generate Seaborn Heatmaps (Speed vs. Signs -> Score) and Line charts (Evacuation Curves).

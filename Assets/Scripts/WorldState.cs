@@ -34,6 +34,12 @@ public class WorldState : MonoBehaviour
     public float SimulationTime = 0f;        // 模擬經過時間
     public int EvacuatedCount = 0;           // 成功逃生人數
     public int ActiveAgentCount = 0;         // 場上活動人數
+
+    [Header("目標函數指標 (Objective Function)")]
+    public float PeakCrowdingAccumulator = 0f; // 每幀最大擁擠度之加總（用於計算平均）
+    public int   CrowdingSampleCount = 0;       // 採樣次數（分母）
+    public float TotalStuckTime = 0f;           // 全體小人卡住時間之總和（秒）
+
     void Awake()
     {
         

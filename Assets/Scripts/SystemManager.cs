@@ -32,6 +32,9 @@ public class SystemManager : MonoBehaviour
     public static bool IsSimulationActive = false;
     public static bool IsAutoMode = false; // 自動化模式標記
 
+    /// <summary>1~10 模擬倍速（不再綁定 Time.timeScale，供 CrowdAgent 速度計算使用）。</summary>
+    public static float SimulationSpeedScale = 1f;
+
     // 快取
     private Camera _mainCam;
     private Dictionary<MeshRenderer, Material[]> _originalMaterials = new Dictionary<MeshRenderer, Material[]>();
@@ -39,16 +42,26 @@ public class SystemManager : MonoBehaviour
 
     // 透明度鍵盤 rising edge
     private bool _prevBKey = false;
+    private int _lastCrowdSwitch = -1;
+    private bool _spawnRoutineRunning = false;
+
+    /// <summary>與 WorldState.Switch + IsSimulationActive 一致；供尋路/換路判斷，不依賴 Time.timeScale。</summary>
+    public static bool IsSimulationRunningState()
+    {
+        return WorldState.Instance != null && WorldState.Instance.Switch == 1 && IsSimulationActive;
+    }
 
     void Awake()
     {
         // Singleton 設定
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+        SimulationSpeedScale = simulationTimeScale;
     }
 
     void Start()
     {
+        Application.targetFrameRate = -1;
         _mainCam = Camera.main;
         
         // 確保一致的隨機行為 (Monte Carlo simulation)
@@ -60,18 +73,20 @@ public class SystemManager : MonoBehaviour
 
     // ─────────────────────────────────────────────────────────────────
     /// <summary>
-    /// 設定模擬速度倍率，同步更新 Time.timeScale 與 Time.fixedDeltaTime。
-    /// 只有在 Switch == 1（模擬進行中）時才會實際改變 timeScale；
-    /// Switch == 0 時僅儲存設定值，等待恢復時使用。
+    /// 設定模擬速度倍率（僅更新 SimulationSpeedScale，不再改 Time.timeScale）。
     /// </summary>
     public void SetSimulationSpeed(float scale)
     {
         simulationTimeScale = Mathf.Clamp(scale, 1f, 10f);
+        SimulationSpeedScale = simulationTimeScale;
+    }
 
-        if (WorldState.Instance != null && WorldState.Instance.Switch == 1)
+    private void SetAllCrowdAgentScriptsEnabled(bool on)
+    {
+        CrowdAgent[] agents = FindObjectsByType<CrowdAgent>(FindObjectsSortMode.None);
+        foreach (var a in agents)
         {
-            Time.timeScale = simulationTimeScale;
-            Time.fixedDeltaTime = 0.02f * Time.timeScale; // 物理防失真
+            if (a != null) a.enabled = on;
         }
     }
 
@@ -86,16 +101,15 @@ public class SystemManager : MonoBehaviour
         // ── 1. 總開關 ──────────────────────────────────────────────────        
         if (!isAutomated)
         {
-            // Switch == 1：恢復到使用者設定的模擬倍速
-            // Switch == 0：暫停，timeScale = 0，但保留 simulationTimeScale 設定值等待恢復
-            if (WorldState.Instance.Switch == 1) {
-                Time.timeScale = simulationTimeScale;
-                Time.fixedDeltaTime = 0.02f * Time.timeScale;
-                IsSimulationActive = true;
-            } else {
-                Time.timeScale = 0f;
-                Time.fixedDeltaTime = 0.02f; // 重置物理時步
-                IsSimulationActive = false;
+            int sw = WorldState.Instance.Switch;
+            IsSimulationActive = (sw == 1);
+            if (sw != _lastCrowdSwitch)
+            {
+                _lastCrowdSwitch = sw;
+                if (sw == 1)
+                    SetAllCrowdAgentScriptsEnabled(true);
+                else if (!_spawnRoutineRunning)
+                    SetAllCrowdAgentScriptsEnabled(false);
             }
         }
 
@@ -244,6 +258,7 @@ public class SystemManager : MonoBehaviour
 
     private IEnumerator SpawnAndStartEvacuationRoutine(MultiZoneSpawner activeSpawner)
     {
+        _spawnRoutineRunning = true;
         // 1. 生成所有小人
         activeSpawner.SpawnAll();
         
@@ -256,6 +271,10 @@ public class SystemManager : MonoBehaviour
         {
             agent.StartEvacuation();
         }
+
+        _spawnRoutineRunning = false;
+        if (WorldState.Instance != null && WorldState.Instance.Switch == 0)
+            SetAllCrowdAgentScriptsEnabled(false);
     }
 
     // ─────────────────────────────────────────────────────────────────

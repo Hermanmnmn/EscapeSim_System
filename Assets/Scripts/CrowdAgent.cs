@@ -28,6 +28,18 @@ public class CrowdAgent : MonoBehaviour
     private bool hasStarted = false;             // 是否已放開煞車（同步起步用）
     private static readonly Collider[] _densityBuffer = new Collider[64]; // 靜態共用緩衝，避免 GC
     private int _cachedHitCount = 0;             // 最近一次密度偵測結果
+    private const float STUCK_SPEED_THRESHOLD = 0.05f; // 低於此速度視為卡住
+    private bool _agentLogicLoopStarted = false;
+
+    /// <summary>在出口附近但遲遲無法滿足 NavMesh 抵達條件時，累積此時間後強制視為已逃生（解決最後一人永遠卡住）。</summary>
+    private float _nearExitStuckSeconds = 0f;
+    private float _lastRepathRealtime = -999f;
+
+    void OnEnable()
+    {
+        if (_agentLogicLoopStarted)
+            StartCoroutine(AgentLogicLoop());
+    }
 
     void Awake()
     {
@@ -75,7 +87,32 @@ public class CrowdAgent : MonoBehaviour
         // ── 6. 降低更新頻率 (方法 3: Lower Update Frequency) ──────────────
         // 放棄每幀 Update()，改用 Staggered Coroutine (5Hz) 進行邏輯計算，
         // 大幅降低 1000 人規模時的 CPU 負擔。
+        _agentLogicLoopStarted = true;
         StartCoroutine(AgentLogicLoop());
+    }
+
+    void Update()
+    {
+        // Headless / timeScale==0：仍跑密度與尋路相關狀態，但鎖住位移（與 AgentLogicLoop 並行）
+        if (Time.timeScale != 0f) return;
+        if (WorldState.Instance == null || WorldState.Instance.Switch != 1) return;
+        if (!SystemManager.IsSimulationActive) return;
+        if (!hasStarted) return;
+
+        int count = Physics.OverlapSphereNonAlloc(transform.position, 1.5f, _densityBuffer);
+        int neighborCount = 0;
+        for (int i = 0; i < count; i++)
+        {
+            if (_densityBuffer[i] != null && _densityBuffer[i].gameObject != gameObject)
+                neighborCount++;
+        }
+        _cachedHitCount = neighborCount;
+
+        if (agent != null && agent.enabled && agent.isOnNavMesh)
+        {
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+        }
     }
 
     // ─────────────────────────────────────────────────────────────────
@@ -110,21 +147,19 @@ public class CrowdAgent : MonoBehaviour
                 continue;
             }
 
-            // ── 8. 模擬暫停/停止時，鎖死所有小人 ────────────────────────────
-            if (!SystemManager.IsSimulationActive)
+            // ── 8. 模擬未跑（Switch/自動化狀態）：手動模式改由 SystemManager 停用 CrowdAgent，此處僅防呆
+            bool simRunning = SystemManager.IsSimulationRunningState();
+            if (!simRunning)
             {
                 if (agent != null && agent.enabled && agent.isOnNavMesh)
                 {
                     agent.isStopped = true;
-                    agent.velocity = Vector3.zero; // 確保速度歸零，防止滑行
+                    agent.velocity = Vector3.zero;
                 }
-                
+
                 yield return waitTime;
                 continue;
             }
-
-            // ── 8b. 已經由 ExperimentRunner 直接呼叫 ReleaseBrake() 同步解除，
-            // 這裡不再依賴 Staggered Coroutine 的延遲，確保 1000 人在同一幀起跑！
 
             // ── 9. 合併 Local Density 計算 ──────────────────────────────
             int count = Physics.OverlapSphereNonAlloc(transform.position, 1.5f, _densityBuffer);
@@ -141,12 +176,25 @@ public class CrowdAgent : MonoBehaviour
             if (agent != null && agent.enabled)
             {
                 const float minSpeed = 0.5f; // 最低速度保底：再擠也能蠕動，防止模擬卡死
-                float calculatedSpeed = (baseSpeed * SystemManager.GlobalSpeedMultiplier) / (1f + _cachedHitCount * 0.1f);
+                float calculatedSpeed = (baseSpeed * SystemManager.GlobalSpeedMultiplier * SystemManager.SimulationSpeedScale)
+                    / (1f + _cachedHitCount * 0.1f);
                 agent.speed = Mathf.Max(minSpeed, calculatedSpeed);
                 
                 // 恐慌半徑映射
                 float panicRatio = WorldState.Instance.KnobSpeed / 1023f;
                 agent.radius = Mathf.Lerp(0.3f, 0.15f, panicRatio); 
+
+                // timeScale==0：仍更新密度/速度模型，但不位移、不判定抵達（避免 Update 與此重複判定）
+                if (Time.timeScale <= 0f)
+                {
+                    if (agent.isOnNavMesh)
+                    {
+                        agent.isStopped = true;
+                        agent.velocity = Vector3.zero;
+                    }
+                    yield return waitTime;
+                    continue;
+                }
 
                 // 擁堵特效
                 if (congestionVFX != null && target != null)
@@ -161,13 +209,53 @@ public class CrowdAgent : MonoBehaviour
                     }
                 }
 
-                // 抵達出口判定
-                if (!isEvacuated && agent.isOnNavMesh && !agent.pathPending && target != null)
+                // ── 卡住時間累積（用於目標函數 Beta 項）──────────────────────
+                if (WorldState.Instance != null && agent.velocity.magnitude < STUCK_SPEED_THRESHOLD)
+                {
+                    // 以真實時間差累積，不受 timeScale 影響（0.2s = 5Hz 間隔）
+                    WorldState.Instance.TotalStuckTime += 0.2f;
+                }
+
+                // 抵達出口判定（NavMesh 在擁擠時 remainingDistance 常為 Infinity / 不更新，需以直線距離與保底計時補強）
+                if (!isEvacuated && agent.isOnNavMesh && target != null)
                 {
                     float distToTarget = Vector3.Distance(transform.position, target.position);
-                    if (agent.remainingDistance <= 1.5f || (distToTarget <= 2.0f && agent.velocity.magnitude < 0.1f))
+                    float rem = agent.remainingDistance;
+                    bool remFinite = !float.IsInfinity(rem) && !float.IsNaN(rem);
+                    bool remSaysArrived = remFinite && rem <= Mathf.Max(1.5f, agent.stoppingDistance + 0.35f);
+
+                    // 仍在排路徑時不判定抵達，但允許「已在出口半徑內」的強制逃生計時
+                    if (agent.pathPending && distToTarget > 3.0f)
                     {
-                        ProcessEvacuation(target.gameObject.name);
+                        _nearExitStuckSeconds = 0f;
+                    }
+                    else
+                    {
+                        const float nearExitBand = 2.7f;
+                        const float forceEvacIfNearSeconds = 12f;
+                        if (distToTarget <= nearExitBand)
+                            _nearExitStuckSeconds += 0.2f;
+                        else
+                            _nearExitStuckSeconds = 0f;
+
+                        bool arrivedByDistance = distToTarget <= 2.85f;
+                        bool arrivedByRem = remSaysArrived && distToTarget < 4.5f;
+                        bool crawlingAtGate = distToTarget <= 3.2f && agent.velocity.sqrMagnitude < 0.08f;
+                        bool forceNearDeadlock = _nearExitStuckSeconds >= forceEvacIfNearSeconds;
+
+                        if (forceNearDeadlock || arrivedByDistance || arrivedByRem || crawlingAtGate)
+                            ProcessEvacuation(target.gameObject.name);
+                    }
+
+                    // 遠離出口但長時間無路徑或路徑失效：偶發重送目的地，避免單點永遠不更新
+                    if (!isEvacuated && distToTarget > 4f && SystemManager.IsSimulationRunningState())
+                    {
+                        bool badPath = !agent.hasPath || agent.pathStatus == NavMeshPathStatus.PathInvalid;
+                        if (badPath && Time.realtimeSinceStartup - _lastRepathRealtime > 2.5f)
+                        {
+                            _lastRepathRealtime = Time.realtimeSinceStartup;
+                            agent.SetDestination(target.position);
+                        }
                     }
                 }
             }
@@ -336,7 +424,7 @@ public class CrowdAgent : MonoBehaviour
     public void ChangeDestination(Transform newTarget)
     {
         target = newTarget;
-        if (agent.enabled && agent.isOnNavMesh)
+        if (agent.enabled && agent.isOnNavMesh && SystemManager.IsSimulationRunningState())
         {
             // 方法 1：分批設定目的地 (Batch SetDestination)
             // 將原本強制同步計算 (CalculatePath) 改回 Unity 原生的異步 SetDestination。
@@ -356,7 +444,7 @@ public class CrowdAgent : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         // ★ 防呆：模擬尚未正式開始（路徑預算階段）時，忽略出口碰觸，避免計數污染
-        if (!SystemManager.IsSimulationActive) return;
+        if (!SystemManager.IsSimulationRunningState()) return;
         
         if (other.CompareTag("Finish") && !isEvacuated)
         {
